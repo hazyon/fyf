@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 Tanvi
+=======
+git test
+happy birthday nixon
+>>>>>>> 9355a24ff71053e67c72f17e36c3c876697d2fb1
