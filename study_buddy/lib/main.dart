@@ -12,11 +12,25 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State {
   int _selectedPage = 0;
   // the array of pages
-  final _pageOptions = [  // the array of pages
+  final _pageOptions = [
+    // the array of pages
     HomePage(),
     // next two lines are just placeholders for now
-    Text("Item 2", style: TextStyle(fontSize: 36),),
-    Text("Item 3", style: TextStyle(fontSize: 36),),
+    Text(
+      "Item 2",
+      style: TextStyle(fontSize: 36),
+    ),
+    Text(
+      "Item 3",
+      style: TextStyle(fontSize: 36),
+    ),
+    Text(
+      "Item 4",
+      style: TextStyle(fontSize: 36),
+    ),    Text(
+      "Item 5",
+      style: TextStyle(fontSize: 36),
+    ),
   ];
 
   @override
@@ -28,14 +42,15 @@ class MyAppState extends State {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Bottom Nav Bar"),
+          title: Text("Study Buddy"),
         ),
         body: _pageOptions[_selectedPage], // displays correct page
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedPage,
           onTap: (int index) {
             setState(() {
-              _selectedPage = index; // this is what actually keeps track of which page the user is on
+              _selectedPage =
+                  index; // this is what actually keeps track of which page the user is on
             });
           },
           items: [
@@ -43,15 +58,25 @@ class MyAppState extends State {
                 icon: Icon(Icons.home),
                 title: Text("Home")
             ),
-            // for now I just put in work and landscape icons,
-            // but those will be changed later once we know what pages we are including
             BottomNavigationBarItem(
-                icon: Icon(Icons.work),
-                title: Text("Work")
+                icon: Icon(Icons.message),
+                title: Text("Message")
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.landscape),
                 title: Text("Landscape")
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_box),
+                title: Text("Add")
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              title: Text("Feed")
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                title: Text("Profile")
             ),
           ],
         ),
@@ -59,4 +84,3 @@ class MyAppState extends State {
     );
   }
 }
-
