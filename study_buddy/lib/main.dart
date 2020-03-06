@@ -1,59 +1,62 @@
 import 'package:flutter/material.dart';
 
+import './home.dart';
+
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => new MyAppState();
+}
+
+class MyAppState extends State {
+  int _selectedPage = 0;
+  // the array of pages
+  final _pageOptions = [  // the array of pages
+    HomePage(),
+    // next two lines are just placeholders for now
+    Text("Item 2", style: TextStyle(fontSize: 36),),
+    Text("Item 3", style: TextStyle(fontSize: 36),),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "Study Buddy",
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
       ),
-      home: FirstRoute(),
-    );
-  }
-}
-
-class FirstRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('First Route'),
-      ),
-      body: Center(
-        child: RaisedButton(
-          child: Text('Open route'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SecondRoute()),
-            );
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Bottom Nav Bar"),
+        ),
+        body: _pageOptions[_selectedPage], // displays correct page
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedPage,
+          onTap: (int index) {
+            setState(() {
+              _selectedPage = index; // this is what actually keeps track of which page the user is on
+            });
           },
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text("Home")
+            ),
+            // for now I just put in work and landscape icons,
+            // but those will be changed later once we know what pages we are including
+            BottomNavigationBarItem(
+                icon: Icon(Icons.work),
+                title: Text("Work")
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.landscape),
+                title: Text("Landscape")
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Route"),
-      ),
-    );
-  }
-}
