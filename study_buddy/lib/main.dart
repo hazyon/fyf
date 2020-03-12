@@ -15,7 +15,7 @@ class MyAppState extends State {
   final _pageOptions = [
     // the array of pages
     HomePage(),
-    // next two lines are just placeholders for now
+    // next few lines are just placeholders for now
     Text(
       "Item 2",
       style: TextStyle(fontSize: 36),
@@ -27,7 +27,8 @@ class MyAppState extends State {
     Text(
       "Item 4",
       style: TextStyle(fontSize: 36),
-    ),    Text(
+    ),
+    Text(
       "Item 5",
       style: TextStyle(fontSize: 36),
     ),
@@ -37,34 +38,27 @@ class MyAppState extends State {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Study Buddy",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text("Study Buddy"),
         ),
         body: _pageOptions[_selectedPage], // displays correct page
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed, // so that the navbar doesn't move around and shows up in the correct colors
           currentIndex: _selectedPage,
           onTap: (int index) {
             setState(() {
-              _selectedPage =
-                  index; // this is what actually keeps track of which page the user is on
+              _selectedPage = index; // this is what actually keeps track of which page the user is on
             });
           },
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text("Home")
+                title: Text("Home"),
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.message),
                 title: Text("Message")
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.landscape),
-                title: Text("Landscape")
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.add_box),
