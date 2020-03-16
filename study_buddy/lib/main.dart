@@ -16,10 +16,7 @@ class MyAppState extends State {
     // the array of pages
     HomePage(),
     // next few lines are just placeholders for now
-    Text(
-      "Item 2",
-      style: TextStyle(fontSize: 36),
-    ),
+    MessagePage(),
     Text(
       "Item 3",
       style: TextStyle(fontSize: 36),
