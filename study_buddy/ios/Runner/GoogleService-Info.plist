@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>516442064554-5dscrdqtqcbb2l3tsef8o5dep6ec8e88.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.516442064554-5dscrdqtqcbb2l3tsef8o5dep6ec8e88</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCXT7xN6d2mbQf5PzGkX2naz61ZGzLx07g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>516442064554</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.studybuddy.studyBuddy</string>
+	<key>PROJECT_ID</key>
+	<string>studybuddyls</string>
+	<key>STORAGE_BUCKET</key>
+	<string>studybuddyls.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:516442064554:ios:a73355004d1931aaea72d3</string>
+	<key>DATABASE_URL</key>
+	<string>https://studybuddyls.firebaseio.com</string>
+</dict>
+</plist>
