@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/splash.dart';
 
-import './home.dart';
-import './control.dart';
 import './splash.dart';
 import './register.dart';
 import './login.dart';
