@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/splash.dart';
 
 import './home.dart';
+import './control.dart';
+import './splash.dart';
+import './register.dart';
+import './login.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,68 +15,18 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State {
-  int _selectedPage = 0;
-  // the array of pages
-  final _pageOptions = [
-    // the array of pages
-    HomePage(),
-    // next few lines are just placeholders for now
-    MessagePage(),
-    Text(
-      "Item 3",
-      style: TextStyle(fontSize: 36),
-    ),
-    Text(
-      "Item 4",
-      style: TextStyle(fontSize: 36),
-    ),
-    Text(
-      "Item 5",
-      style: TextStyle(fontSize: 36),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Study Buddy",
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Study Buddy"),
-        ),
-        body: _pageOptions[_selectedPage], // displays correct page
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed, // so that the navbar doesn't move around and shows up in the correct colors
-          currentIndex: _selectedPage,
-          onTap: (int index) {
-            setState(() {
-              _selectedPage = index; // this is what actually keeps track of which page the user is on
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text("Home"),
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.message),
-                title: Text("Message")
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add_box),
-                title: Text("Add")
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              title: Text("Feed")
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                title: Text("Profile")
-            ),
-          ],
-        ),
-      ),
+      home: SplashPage(),
+      routes: <String, WidgetBuilder>{
+        /*'/task': (BuildContext context) => SecondPage(title: 'Task'),
+        '/home': (BuildContext context) => MyHomePage(title: 'Home'),*/
+        '/login': (BuildContext context) => LoginPage(),
+        '/register': (BuildContext context) => RegisterPage(),
+      }
     );
   }
 }
