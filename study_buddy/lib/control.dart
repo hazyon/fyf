@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './home.dart';
 
+import './friends.dart';
+
 class ControlPage extends StatefulWidget
 {
   ControlPage({Key key, this.title, this.uid}) : super(key: key);
@@ -13,34 +15,44 @@ class ControlPage extends StatefulWidget
   State<StatefulWidget> createState() => new ControlPageState();
 }
 
-class ControlPageState extends State
+class ControlPageState extends State<ControlPage>
 {
-  int _selectedPage = 0;
+  String date;
+
   // the array of pages
-  final _pageOptions = [
-    // the array of pages
-    HomePage(),
-    // next few lines are just placeholders for now
-    MessagePage(),
-    Text(
-      "Item 3",
-      style: TextStyle(fontSize: 36),
-    ),
-    Text(
-      "Item 4",
-      style: TextStyle(fontSize: 36),
-    ),
-    Text(
-      "Item 5",
-      style: TextStyle(fontSize: 36),
-    ),
-  ];
+  List _pageOptions;
+
+  @override
+  void initState() {
+    DateTime now = DateTime.now();
+    date = now.year.toString() + "-" + now.month.toString() + "-" + now.day.toString();
+    _pageOptions = [
+      // the array of pages
+      HomePage(),
+      // next few lines are just placeholders for now
+      MessagePage(),
+      Text(
+        "Item 3",
+        style: TextStyle(fontSize: 36),
+      ),
+      Friends(uid: widget.uid, date: date),
+      Text(
+        "Item 5",
+        style: TextStyle(fontSize: 36),
+      ),
+    ];
+    super.initState();
+  }
+
+  int _selectedPage = 0;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Study Buddy"),
+          // log out feature adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
           actions: <Widget>[
             FlatButton(
               child: Text("Log Out"),
@@ -74,12 +86,12 @@ class ControlPageState extends State
               title: Text("Message")
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_box),
-              title: Text("Add")
+              icon: Icon(Icons.add_call),
+              title: Text("Meetings")
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              title: Text("Feed")
+              icon: Icon(Icons.people_outline),
+              title: Text("Friends")
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings),

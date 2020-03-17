@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
         Text("Home", style: TextStyle(fontSize: 36),),
       FlatButton(
-      child: Text('Add'),
+      child: Text('Add Hardcoded Task'),
       onPressed: () {
 
       Firestore.instance
