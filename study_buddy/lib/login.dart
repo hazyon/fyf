@@ -58,14 +58,14 @@ class _LoginPageState extends State<LoginPage> {
                     children: <Widget>[
                       TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'Email*', hintText: "john.doe@gmail.com"),
+                            labelText: 'Email', hintText: "john.doe@gmail.com"),
                         controller: emailInputController,
                         keyboardType: TextInputType.emailAddress,
                         validator: emailValidator,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'Password*', hintText: "********"),
+                            labelText: 'Password', hintText: "********"),
                         controller: pwdInputController,
                         obscureText: true,
                         validator: pwdValidator,

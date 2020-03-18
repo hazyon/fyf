@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:study_buddy/splash.dart';
 
 import './splash.dart';
 import './register.dart';
 import './login.dart';
 
-void main() => runApp(MyApp());
-
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]) // app is only vertical
+      .then((_) {
+    runApp(new MyApp());
+  });
+}
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new MyAppState();
