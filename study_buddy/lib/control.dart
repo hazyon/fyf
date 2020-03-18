@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:study_buddy/profileUpdate.dart';
 import './home.dart';
 
 import './friends.dart';
+import './profileUpdate.dart';
 
 class ControlPage extends StatefulWidget
 {
@@ -36,10 +38,7 @@ class ControlPageState extends State<ControlPage>
         style: TextStyle(fontSize: 36),
       ),
       Friends(uid: widget.uid, date: date),
-      Text(
-        "Item 5",
-        style: TextStyle(fontSize: 36),
-      ),
+      ProfilePage(uid: widget.uid),
     ];
     super.initState();
   }
