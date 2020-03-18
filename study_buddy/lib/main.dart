@@ -26,7 +26,7 @@ class MyAppState extends State {
     return MaterialApp(
         theme: ThemeData(
             hintColor: Colors.blue,
-            primaryColor: Color(0x4EB3D4),
+            primaryColor: Color(0xFF4EB3D4),
             canvasColor: Colors.white,
             fontFamily: "Montserrat"),
         title: "Study Buddy",
