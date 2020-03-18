@@ -24,6 +24,11 @@ class MyAppState extends State {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: ThemeData(
+            hintColor: Colors.blue,
+            primaryColor: Color(0x4EB3D4),
+            canvasColor: Colors.white,
+            fontFamily: "Montserrat"),
         title: "Study Buddy",
         home: SplashPage(),
         routes: <String, WidgetBuilder>{
