@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print("Running initState");
     userProfileRef =
         Firestore.instance.collection("users").document(widget.uid);
-    // TODO: currently you have to hot reload to show the current value, change so that it automatically loads the current name or it just blank
+    // TODO: currently you have to hot reload to show the current value, change so that it automatically loads the current name or it is just blank
     userProfileRef.get().then((result) {
       firstNameInputController =
           new TextEditingController(text: result["fname"]);
@@ -93,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 "fname": firstNameInputController.text,
                                 "surname": lastNameInputController.text
                               })
-                              .catchError((err) => print(err))
+                              .catchError((err) => print(err))  // TODO: this line might be optional?
                               .catchError((err) => print(err));
                         }
                       },
