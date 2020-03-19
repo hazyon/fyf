@@ -6,13 +6,28 @@ import './splash.dart';
 import './register.dart';
 import './login.dart';
 
+<<<<<<< HEAD
+/*
 void main() {
+=======
+void main() => runApp(MyApp());
+/*void main() {
+>>>>>>> 04705d81339ec3dc90c511f2a5e9e6d2a2ade0c4
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp]) // app is only vertical
       .then((_) {
     runApp(new MyApp());
+<<<<<<< HEAD
   });
+}*/
+
+void main() {
+  runApp(new MyApp());
 }
+=======
+  }).catchError((err) => print(err));
+}*/
+>>>>>>> 04705d81339ec3dc90c511f2a5e9e6d2a2ade0c4
 
 class MyApp extends StatefulWidget {
   @override
@@ -25,7 +40,7 @@ class MyAppState extends State {
     return MaterialApp(
         theme: ThemeData(
             hintColor: Colors.blue,
-            primaryColor: Color(0x4EB3D4),
+            primaryColor: Color(0xFF4EB3D4),
             canvasColor: Colors.white,
             fontFamily: "Montserrat"),
         title: "Study Buddy",
