@@ -6,28 +6,17 @@ import './splash.dart';
 import './register.dart';
 import './login.dart';
 
-<<<<<<< HEAD
-/*
-void main() {
-=======
 void main() => runApp(MyApp());
 /*void main() {
->>>>>>> 04705d81339ec3dc90c511f2a5e9e6d2a2ade0c4
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp]) // app is only vertical
       .then((_) {
     runApp(new MyApp());
-<<<<<<< HEAD
   });
 }*/
 
-void main() {
-  runApp(new MyApp());
-}
-=======
-  }).catchError((err) => print(err));
-}*/
->>>>>>> 04705d81339ec3dc90c511f2a5e9e6d2a2ade0c4
+//.catchError((err) => print(err));
+// sorry I'm trying to resolve issues and idk what to do with this line
 
 class MyApp extends StatefulWidget {
   @override
