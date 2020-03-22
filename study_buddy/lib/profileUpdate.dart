@@ -61,9 +61,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 key: _updateNameKey,
                 child: Column(
                   children: <Widget>[
+                    new Padding(padding: EdgeInsets.only(top: 1.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'First Name*', hintText: "John"),
+                          labelText: 'First Name',
+                          //hintText: "John"
+                          border: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(25.0),
+                            borderSide: new BorderSide(),
+                        ),
+                      ),
                       controller: firstNameInputController,
                       validator: (value) {
                         if (value.length < 3) {
@@ -72,16 +79,24 @@ class _ProfilePageState extends State<ProfilePage> {
                         return null;
                       },
                     ),
+                    new Padding(padding: EdgeInsets.all(10.0)),
                     TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'Last Name*', hintText: "Doe"),
+                            labelText: 'Last Name',
+                            border: OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(25.0),
+                              borderSide: new BorderSide(),
+                            ),
+                            //hintText: "Doe"
+                        ),
                         controller: lastNameInputController,
                         validator: (value) {
-                          if (value.length < 3) {
+                          if (value.length < 2) {
                             return "Please enter a valid last name.";
                           }
                           return null;
                         }),
+                    new Padding(padding: EdgeInsets.all(10.0)),
                     RaisedButton(
                       child: Text("Update Name"),
                       shape: RoundedRectangleBorder(
@@ -106,20 +121,35 @@ class _ProfilePageState extends State<ProfilePage> {
               Form(
                   key: _updatePasswordKey,
                   child: Column(children: <Widget>[
+                    new Padding(padding: EdgeInsets.all(10.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'Password*', hintText: "********"),
+                          labelText: 'Password',
+                          border: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(25.0),
+                            borderSide: new BorderSide(),
+                          ),
+                        //hintText: "********",
+                      ),
                       controller: pwdInputController,
                       obscureText: true,
                       validator: pwdValidator,
                     ),
+                    new Padding(padding: EdgeInsets.all(10.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'Confirm Password*', hintText: "********"),
+                          labelText: 'Confirm Password',
+                        border: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
+                        ),
+                          //hintText: "********",
+                      ),
                       controller: confirmPwdInputController,
                       obscureText: true,
                       validator: pwdValidator,
                     ),
+                    new Padding(padding: EdgeInsets.all(10.0)),
                     RaisedButton(
                       child: Text("Change Password"),
                       shape: RoundedRectangleBorder(
