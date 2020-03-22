@@ -29,7 +29,7 @@ class MyAppState extends State {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-            hintColor: Colors.blue,
+            hintColor: Colors.black,
             primaryColor: Color(0xFF4EB3D4),
             canvasColor: Colors.white,
             fontFamily: "Montserrat",

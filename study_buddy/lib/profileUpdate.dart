@@ -57,11 +57,12 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              new Padding(padding: EdgeInsets.only(top: 10.0)),
               Form(
                 key: _updateNameKey,
                 child: Column(
                   children: <Widget>[
-                    new Padding(padding: EdgeInsets.only(top: 1.0)),
+                    //new Padding(padding: EdgeInsets.only(top: 1.0)),
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: 'First Name',
@@ -79,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         return null;
                       },
                     ),
-                    new Padding(padding: EdgeInsets.all(10.0)),
+                    new Padding(padding: EdgeInsets.all(5.0)),
                     TextFormField(
                         decoration: InputDecoration(
                             labelText: 'Last Name',
@@ -135,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       obscureText: true,
                       validator: pwdValidator,
                     ),
-                    new Padding(padding: EdgeInsets.all(10.0)),
+                    new Padding(padding: EdgeInsets.all(5.0)),
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: 'Confirm Password',
@@ -149,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       obscureText: true,
                       validator: pwdValidator,
                     ),
-                    new Padding(padding: EdgeInsets.all(10.0)),
+                    new Padding(padding: EdgeInsets.all(7.5)),
                     RaisedButton(
                       child: Text("Change Password"),
                       shape: RoundedRectangleBorder(
