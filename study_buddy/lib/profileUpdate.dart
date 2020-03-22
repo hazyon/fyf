@@ -84,6 +84,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         }),
                     RaisedButton(
                       child: Text("Update Name"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16.0))),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () {
@@ -120,6 +122,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     RaisedButton(
                       child: Text("Change Password"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16.0))),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () {

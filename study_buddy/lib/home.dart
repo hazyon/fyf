@@ -12,7 +12,6 @@ class HomePage extends StatelessWidget {
       FlatButton(
       child: Text('Add Hardcoded Task'),
       onPressed: () {
-
       Firestore.instance
           .collection('tasks')
           .add({

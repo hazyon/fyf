@@ -7,6 +7,7 @@ import './register.dart';
 import './login.dart';
 
 void main() => runApp(MyApp());
+
 /*void main() {
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp]) // app is only vertical
@@ -31,12 +32,13 @@ class MyAppState extends State {
             hintColor: Colors.blue,
             primaryColor: Color(0xFF4EB3D4),
             canvasColor: Colors.white,
-            fontFamily: "Montserrat"),
+            fontFamily: "Montserrat",
+        ),
         title: "Study Buddy Test",
         home: SplashPage(),
         routes: <String, WidgetBuilder>{
-          /*'/task': (BuildContext context) => SecondPage(title: 'Task'),
-        '/home': (BuildContext context) => MyHomePage(title: 'Home'),*/
+          //'/task': (BuildContext context) => SecondPage(title: 'Task'),
+          //'/home': (BuildContext context) => MyHomePage(title: 'Home'),
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
         });

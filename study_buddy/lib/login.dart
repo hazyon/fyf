@@ -74,6 +74,8 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text("Login"),
                         color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16.0))),
                         onPressed: () {
                           if (_loginFormKey.currentState.validate()) {
                             FirebaseAuth.instance

@@ -106,6 +106,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       RaisedButton(
                         child: Text("Register"),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16.0))),
                         color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
                         onPressed: () {
