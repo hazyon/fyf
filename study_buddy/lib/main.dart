@@ -32,7 +32,7 @@ class MyAppState extends State {
             primaryColor: Color(0xFF4EB3D4),
             canvasColor: Colors.white,
             fontFamily: "Montserrat"),
-        title: "Study Buddy",
+        title: "Study Buddy Test",
         home: SplashPage(),
         routes: <String, WidgetBuilder>{
           /*'/task': (BuildContext context) => SecondPage(title: 'Task'),
