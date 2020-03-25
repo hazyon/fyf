@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_buddy/profileUpdate.dart';
-import './home.dart';
 
+import './home.dart';
 import './friends.dart';
 import './profileUpdate.dart';
+import './meetings.dart';
 
 class ControlPage extends StatefulWidget
 {
@@ -31,12 +32,8 @@ class ControlPageState extends State<ControlPage>
     _pageOptions = [
       // the array of pages
       HomePage(),
-      // next few lines are just placeholders for now
       MessagePage(),
-      Text(
-        "Item 3",
-        style: TextStyle(fontSize: 36),
-      ),
+      MeetingPage(),
       Friends(uid: widget.uid, date: date),
       ProfilePage(uid: widget.uid),
     ];
@@ -44,7 +41,6 @@ class ControlPageState extends State<ControlPage>
   }
 
   int _selectedPage = 0;
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +78,7 @@ class ControlPageState extends State<ControlPage>
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.message),
-              title: Text("Message")
+              title: Text("Chat")
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.add_call),
