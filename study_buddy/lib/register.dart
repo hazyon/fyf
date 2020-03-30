@@ -66,40 +66,44 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: <Widget>[
                       TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'First Name', hintText: "John"),
+                            labelText: 'First Name'
+                        ),
                         controller: firstNameInputController,
                         validator: (value) {
                           if (value.length < 3) {
                             return "Please enter a valid first name.";
                           }
+                          return null;
                         },
                       ),
                       TextFormField(
                           decoration: InputDecoration(
-                              labelText: 'Last Name', hintText: "Doe"),
+                              labelText: 'Last Name'
+                          ),
                           controller: lastNameInputController,
                           validator: (value) {
                             if (value.length < 3) {
                               return "Please enter a valid last name.";
                             }
+                            return null;
                           }),
                       TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'Email', hintText: "john.doe@gmail.com"),
+                            labelText: 'Email'),
                         controller: emailInputController,
                         keyboardType: TextInputType.emailAddress,
                         validator: emailValidator,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'Password', hintText: "********"),
+                            labelText: 'Password'),
                         controller: pwdInputController,
                         obscureText: true,
                         validator: pwdValidator,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'Confirm Password', hintText: "********"),
+                            labelText: 'Confirm Password'),
                         controller: confirmPwdInputController,
                         obscureText: true,
                         validator: pwdValidator,

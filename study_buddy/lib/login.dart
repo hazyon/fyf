@@ -91,8 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ControlPage(
-                                          title: result["fname"] +
-                                              "'s Tasks",
+                                          title: result["fname"] + "'s Tasks",
                                           uid: currentUser.uid,
                                         ))))
                                 .catchError((err) => print(err)))
@@ -109,6 +108,9 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   ),
-                ))));
+                )
+            )
+        )
+    );
   }
 }

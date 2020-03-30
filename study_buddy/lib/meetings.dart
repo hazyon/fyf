@@ -19,6 +19,7 @@ class _MeetingPageState extends State<MeetingPage> {
   final GlobalKey<FormState> _addMeetingKey = GlobalKey<FormState>();
 
   TextEditingController titleInputController;
+  TextEditingController descriptionInputController;
   TextEditingController dateInputController;
   TextEditingController timeInputController;
   TextEditingController locationInputController;
@@ -35,6 +36,8 @@ class _MeetingPageState extends State<MeetingPage> {
     userProfileRef.get().then((result) {
       titleInputController =
         new TextEditingController(text: result["title"]);
+      descriptionInputController =
+        new TextEditingController(text: result["description"]);
       dateInputController =
           new TextEditingController(text: result["date"]);
       timeInputController =
@@ -77,6 +80,16 @@ class _MeetingPageState extends State<MeetingPage> {
                         return null;
                       },
                     ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Description',
+                        border: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(17.0),
+                          borderSide: new BorderSide(),
+                        ),
+                      ),
+                      controller: descriptionInputController,
+                    ),
                     new Padding(padding: EdgeInsets.all(10.0)),
                     TextFormField(
                       decoration: InputDecoration(
@@ -86,6 +99,7 @@ class _MeetingPageState extends State<MeetingPage> {
                           borderSide: new BorderSide(),
                         ),
                       ),
+                      keyboardType: TextInputType.datetime,
                       controller: dateInputController,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -103,6 +117,7 @@ class _MeetingPageState extends State<MeetingPage> {
                         ),
                         //hintText: "Doe"
                       ),
+                      keyboardType: TextInputType.datetime,
                       controller: timeInputController,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -154,9 +169,9 @@ class _MeetingPageState extends State<MeetingPage> {
                       textColor: Colors.white,
                       onPressed: () {
                         if (_addMeetingKey.currentState.validate()) {
-                          userProfileRef
-                              .updateData({
+                          userProfileRef.updateData({
                                 "title": titleInputController.text,
+                                "description": descriptionInputController.text,
                                 "date": dateInputController.text,
                                 "time": timeInputController.text,
                                 "location": locationInputController.text,
