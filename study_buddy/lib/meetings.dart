@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class MeetingPage extends StatefulWidget {
   MeetingPage({Key key, this.uid}) : super(key: key);
@@ -21,10 +23,11 @@ class _MeetingPageState extends State<MeetingPage> {
 
   TextEditingController titleInputController;
   TextEditingController descriptionInputController;
-  TextEditingController dateInputController;
-  TextEditingController timeInputController;
   TextEditingController locationInputController;
   TextEditingController classInputController;
+
+  DateTime date;
+  DateTime time;
 
   DocumentReference userProfileRef;
 
@@ -35,19 +38,12 @@ class _MeetingPageState extends State<MeetingPage> {
         Firestore.instance.collection("users").document(widget.uid);
     // TODO: currently you have to hot reload to show the current value, change so that it automatically loads the current name or it is just blank
     userProfileRef.get().then((result) {
-      titleInputController =
-        new TextEditingController(text: result["title"]);
+      titleInputController = new TextEditingController(text: result["title"]);
       descriptionInputController =
-        new TextEditingController(text: result["description"]);
-      dateInputController =
-          new TextEditingController(text: result["date"]);
-      timeInputController =
-          new TextEditingController(text: result["time"]);
+          new TextEditingController(text: result["description"]);
       locationInputController =
           new TextEditingController(text: result["location"]);
-      classInputController =
-      new TextEditingController(text: result["class"]);
-
+      classInputController = new TextEditingController(text: result["class"]);
     });
     super.initState();
   }
@@ -95,51 +91,49 @@ class _MeetingPageState extends State<MeetingPage> {
                     DateTimePickerFormField(
                       inputType: InputType.date,
                       format: DateFormat("yyyy-MM-dd"),
-                      initialDate: DateTime(2019, 1, 1),
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
                       editable: false,
                       decoration: InputDecoration(
                           labelText: 'Date',
-                          hasFloatingPlaceholder: false
-                      ),
-                      onChanged: (dt) {
-                        setState(() => date2 = dt);
-                        print('Selected date: $date2');
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Date',
-                        border: OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(17.0),
-                          borderSide: new BorderSide(),
-                        ),
-                      ),
-                      keyboardType: TextInputType.datetime,
-                      controller: dateInputController,
+                          border: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(17.0),
+                            borderSide: new BorderSide(),
+                          ),
+                          hasFloatingPlaceholder: false),
+                      onChanged: (dt) => setState(() => date = dt),
+                      /*
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter some text';
                         }
                         return null;
                       },
+                      */
                     ),
-                    TextFormField(
+                    DateTimePickerFormField(
+                      inputType: InputType.time,
+                      initialTime: TimeOfDay.now(),
+                      editable: false,
+                      format: DateFormat("HH:mm"),
                       decoration: InputDecoration(
                         labelText: 'Time',
+                        hasFloatingPlaceholder: false,
                         border: OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(17.0),
                           borderSide: new BorderSide(),
                         ),
                         //hintText: "Doe"
                       ),
-                      keyboardType: TextInputType.datetime,
-                      controller: timeInputController,
+                      onChanged: (t) => setState(() => time = t),
+                      /*
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter some text';
                         }
                         return null;
                       },
+                      */
                     ),
                     TextFormField(
                       decoration: InputDecoration(
@@ -184,15 +178,17 @@ class _MeetingPageState extends State<MeetingPage> {
                       textColor: Colors.white,
                       onPressed: () {
                         if (_addMeetingKey.currentState.validate()) {
-                          userProfileRef.updateData({
+                          userProfileRef
+                              .updateData({
                                 "title": titleInputController.text,
                                 "description": descriptionInputController.text,
-                                "date": dateInputController.text,
-                                "time": timeInputController.text,
+                                "date": date,
+                                "time": time,
                                 "location": locationInputController.text,
                                 "class": classInputController.text,
                               })
-                              .catchError((err) => print(err)) // TODO: this line might be optional?
+                              .catchError((err) => print(
+                                  err)) // TODO: this line might be optional?
                               .catchError((err) => print(err));
                         }
                       },
