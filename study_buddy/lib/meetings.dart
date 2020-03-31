@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class MeetingPage extends StatefulWidget {
   MeetingPage({Key key, this.uid}) : super(key: key);
@@ -91,6 +92,20 @@ class _MeetingPageState extends State<MeetingPage> {
                       controller: descriptionInputController,
                     ),
                     new Padding(padding: EdgeInsets.all(10.0)),
+                    DateTimePickerFormField(
+                      inputType: InputType.date,
+                      format: DateFormat("yyyy-MM-dd"),
+                      initialDate: DateTime(2019, 1, 1),
+                      editable: false,
+                      decoration: InputDecoration(
+                          labelText: 'Date',
+                          hasFloatingPlaceholder: false
+                      ),
+                      onChanged: (dt) {
+                        setState(() => date2 = dt);
+                        print('Selected date: $date2');
+                      },
+                    ),
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: 'Date',
