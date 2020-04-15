@@ -13,11 +13,8 @@ void main() => runApp(MyApp());
           [DeviceOrientation.portraitUp]) // app is only vertical
       .then((_) {
     runApp(new MyApp());
-  });
+  }).catchError((err) => print(err));
 }*/
-
-//.catchError((err) => print(err));
-// sorry I'm trying to resolve issues and idk what to do with this line
 
 class MyApp extends StatefulWidget {
   @override
