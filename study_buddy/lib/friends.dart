@@ -40,8 +40,9 @@ class _FriendsState extends State<Friends> {
 
   String _emailOfRecipient;
 
-  String _senderFName;
-  String _senderSurname;
+  //String _senderFName;
+  //String _senderSurname;
+  String _senderFullName;
   String _senderEmail;
 
   @override
@@ -53,8 +54,9 @@ class _FriendsState extends State<Friends> {
         .document(widget.uid)
         .get()
         .then((DocumentSnapshot result) {
-      _senderFName = result["fname"];
-      _senderSurname = result["surname"];
+      //_senderFName = result["fname"];
+      _senderFullName = result["fname"] + " " + result["surname"];
+      //_senderSurname = result["surname"];
       _senderEmail = result["email"];
     }).catchError((err) => print(err));
     //taskDescripInputController = new TextEditingController();
@@ -163,7 +165,7 @@ class _FriendsState extends State<Friends> {
                           .add({
                         "uid": widget.uid,
                         "status": "incoming",
-                        "fullName": _senderFName + " " + _senderSurname,
+                        "fullName": _senderFullName,
                         "email": _senderEmail,
                         "date": widget.date
                       }).catchError((err) => print(err));
@@ -223,6 +225,7 @@ class _FriendsState extends State<Friends> {
               .collection("users")
               .document(widget.uid)
               .collection('friends')
+              .orderBy("status")
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -237,7 +240,13 @@ class _FriendsState extends State<Friends> {
                     return new CustomCard(
                         name: document['fullName'],
                         email: document['email'],
-                        date: document['date']);
+                        date: document['date'],
+                        status: document['status'],
+                        uid: document["uid"],
+                    docId: document.documentID,
+                    userEmail: _senderEmail,
+                    userFullName: _senderFullName,
+                    userUID: widget.uid,);
                   }).toList(),
                 );
             }

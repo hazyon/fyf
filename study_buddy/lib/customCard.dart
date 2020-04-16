@@ -4,11 +4,20 @@ import 'package:flutter/material.dart';
 import './friendRequest.dart';
 
 class CustomCard extends StatelessWidget {
-  CustomCard({@required this.email, this.name, this.date});
+  CustomCard({@required this.email, this.name, this.date, this.status, this.uid, this.docId, this.userEmail, this.userFullName, this.userUID});
 
+  // information on the card about the person who sent the request
   final email;
   final name;
   final date;
+  final status;
+  final uid;
+  final docId;
+
+  // information about the current user
+  final userEmail;
+  final userFullName;
+  final userUID;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,7 @@ class CustomCard extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => FriendRequestDescription(
-                                  name: name, email: email, date: date)));
+                                  name: name, email: email, date: date, status: status, uid: uid, docId: docId, userUID: userUID, userFullName: userFullName, userEmail: userEmail,)));
                     }),
               ],
             )));
