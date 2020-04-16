@@ -32,7 +32,7 @@ class _FriendsState extends State<Friends> {
   final GlobalKey<FormState> _friendFormKey = GlobalKey<FormState>();
   TextEditingController taskTitleInputController;
   //TextEditingController taskDescripInputController;
-  String currentEmailUID;
+  //String currentEmailUID;
   var recipient;
 
   bool _isInvalidAsyncEmail = false;
@@ -40,10 +40,23 @@ class _FriendsState extends State<Friends> {
 
   String _emailOfRecipient;
 
+  String _senderFName;
+  String _senderSurname;
+  String _senderEmail;
+
   @override
   initState() {
     taskTitleInputController = new TextEditingController();
-    currentEmailUID = "UIDplaceholder";
+    //currentEmailUID = "UIDplaceholder";
+    Firestore.instance
+        .collection("users")
+        .document(widget.uid)
+        .get()
+        .then((DocumentSnapshot result) {
+      _senderFName = result["fname"];
+      _senderSurname = result["surname"];
+      _senderEmail = result["email"];
+    }).catchError((err) => print(err));
     //taskDescripInputController = new TextEditingController();
     super.initState();
   }
@@ -139,16 +152,31 @@ class _FriendsState extends State<Friends> {
                     if (docs.documents.isNotEmpty) {
                       // emails are unique, so there should only be one
                       recipient = docs.documents[0].data;
-                      currentEmailUID =
-                          recipient["fname"] + " " + recipient["surname"];
+                      //currentEmailUID = recipient["uid"];
+                      //recipient["fname"] + " " + recipient["surname"];
                       _isInvalidAsyncEmail = false;
                       //_haveValidEmail = true;
+                      Firestore.instance
+                          .collection("users")
+                          .document(recipient["uid"])
+                          .collection('friends')
+                          .add({
+                        "uid": widget.uid,
+                        "status": "incoming",
+                        "fullName": _senderFName + " " + _senderSurname,
+                        "email": _senderEmail,
+                        "date": widget.date
+                      }).catchError((err) => print(err));
+
                       Firestore.instance
                           .collection("users")
                           .document(widget.uid)
                           .collection('friends')
                           .add({
-                            "fullName": currentEmailUID,
+                            "uid": recipient["uid"],
+                            "status": "pending",
+                            "fullName":
+                                recipient["fname"] + " " + recipient["surname"],
                             "email": taskTitleInputController.text,
                             "date": widget.date
                           })
