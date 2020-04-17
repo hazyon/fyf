@@ -32,8 +32,11 @@ class ControlPageState extends State<ControlPage>
     _pageOptions = [
       // the array of pages
       HomePage(),
-      MessagePage(),
-      MeetingPage(),
+      Text(
+        "Messages",
+        style: TextStyle(fontSize: 36),
+      ),
+      Meetings(uid: widget.uid, date: date),
       Friends(uid: widget.uid, date: date),
       ProfilePage(uid: widget.uid),
     ];
@@ -46,7 +49,7 @@ class ControlPageState extends State<ControlPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Study Buddy"),
+          title: Text("Study Buddy"),
           // log out feature adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
           actions: <Widget>[
             FlatButton(
