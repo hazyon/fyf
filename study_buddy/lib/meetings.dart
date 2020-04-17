@@ -187,7 +187,7 @@ class _MeetingPageState extends State<MeetingPage> {
                     ),
                     new Padding(padding: EdgeInsets.all(10.0)),
                     new Text(
-                      'Select Recepients',
+                      'Select Recipients',
                       style: new TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -246,7 +246,7 @@ class _MeetingPageState extends State<MeetingPage> {
                             "time": time,
                             "location": locationInputController.text,
                             "class": classInputController.text,
-                            "recepient": _radioValue
+                            "recipient": _radioValue
                           }); // adds to database
 
                           // clears form fields on submit
