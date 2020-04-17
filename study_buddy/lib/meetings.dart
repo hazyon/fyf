@@ -29,28 +29,35 @@ class _MeetingPageState extends State<MeetingPage> {
   DateTime date;
   DateTime time;
 
-  DocumentReference userProfileRef;
+  //DocumentReference userProfileRef;
 
   @override
   initState() {
-    print("Running initState");
-    userProfileRef =
-        Firestore.instance.collection("users").document(widget.uid);
-    // TODO: currently you have to hot reload to show the current value, change so that it automatically loads the current name or it is just blank
-    userProfileRef.get().then((result) {
+    print("Running initState"); // for debug
+
+    // instantiate controllers
+    titleInputController = new TextEditingController();
+    descriptionInputController = new TextEditingController();
+    locationInputController = new TextEditingController();
+    classInputController = new TextEditingController();
+
+    // userProfileRef = Firestore.instance.collection("users").document(widget.uid);
+
+    /*userProfileRef.get().then((result) {
       titleInputController = new TextEditingController(text: result["title"]);
       descriptionInputController =
           new TextEditingController(text: result["description"]);
       locationInputController =
           new TextEditingController(text: result["location"]);
       classInputController = new TextEditingController(text: result["class"]);
-    });
+    });*/
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Running build");
+    print("Running build"); // debug
     return Container(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -92,7 +99,8 @@ class _MeetingPageState extends State<MeetingPage> {
                       inputType: InputType.date,
                       format: DateFormat("yyyy-MM-dd"),
                       initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
+                      // todo: fix firstDate so that it doesn't cause issues with initialDate
+                      //firstDate: DateTime.now(),
                       editable: false,
                       decoration: InputDecoration(
                           labelText: 'Date',
@@ -178,18 +186,26 @@ class _MeetingPageState extends State<MeetingPage> {
                       textColor: Colors.white,
                       onPressed: () {
                         if (_addMeetingKey.currentState.validate()) {
-                          userProfileRef
-                              .updateData({
-                                "title": titleInputController.text,
-                                "description": descriptionInputController.text,
-                                "date": date,
-                                "time": time,
-                                "location": locationInputController.text,
-                                "class": classInputController.text,
-                              })
-                              .catchError((err) => print(
-                                  err)) // TODO: this line might be optional?
-                              .catchError((err) => print(err));
+                          Firestore.instance
+                              .collection('meetings')
+                              .document()
+                              .setData({
+                            // adds to database
+                            'title': titleInputController.text,
+                            'description': descriptionInputController.text,
+                            "date": date,
+                            "time": time,
+                            "location": locationInputController.text,
+                            "class": classInputController.text,
+                          }); // adds to database
+                          /*userProfileRef.updateData({
+                            "title": titleInputController.text,
+                            "description": descriptionInputController.text,
+                            "date": date,
+                            "time": time,
+                            "location": locationInputController.text,
+                            "class": classInputController.text,
+                          }).catchError((err) => print(err));*/
                         }
                       },
                     ),
