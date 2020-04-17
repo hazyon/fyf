@@ -198,14 +198,15 @@ class _MeetingPageState extends State<MeetingPage> {
                             "location": locationInputController.text,
                             "class": classInputController.text,
                           }); // adds to database
-                          /*userProfileRef.updateData({
-                            "title": titleInputController.text,
-                            "description": descriptionInputController.text,
-                            "date": date,
-                            "time": time,
-                            "location": locationInputController.text,
-                            "class": classInputController.text,
-                          }).catchError((err) => print(err));*/
+
+                          // clears form fields on submit
+                          // todo: make sure date and time are cleared; figure out more efficient way to do this
+                          titleInputController.clear();
+                          descriptionInputController.clear();
+                          locationInputController.clear();
+                          classInputController.clear();
+
+                          _openNewPage(); // success page on submission
                         }
                       },
                     ),
@@ -215,5 +216,45 @@ class _MeetingPageState extends State<MeetingPage> {
             ],
           ),
         ));
+  }
+
+  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
+  void _openNewPage() {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Success'),
+            ),
+            body: new Center(
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 19.0),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 19.0),
+                        ),
+                        Text(
+                          'You have Successfully Sent a Meeting Request!',
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: new TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
