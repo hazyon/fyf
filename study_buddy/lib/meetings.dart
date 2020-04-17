@@ -29,6 +29,8 @@ class _MeetingPageState extends State<MeetingPage> {
   DateTime date;
   DateTime time;
 
+  int _radioValue = 0;
+
   //DocumentReference userProfileRef;
 
   @override
@@ -58,6 +60,14 @@ class _MeetingPageState extends State<MeetingPage> {
   @override
   Widget build(BuildContext context) {
     print("Running build"); // debug
+
+    // for the radio buttons in the form
+    void _handleRadioValueChange(int value) {
+      setState(() {
+        _radioValue = value;
+      });
+    }
+
     return Container(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -131,7 +141,6 @@ class _MeetingPageState extends State<MeetingPage> {
                           borderRadius: new BorderRadius.circular(17.0),
                           borderSide: new BorderSide(),
                         ),
-                        //hintText: "Doe"
                       ),
                       onChanged: (t) => setState(() => time = t),
                       /*
@@ -177,6 +186,46 @@ class _MeetingPageState extends State<MeetingPage> {
                       },
                     ),
                     new Padding(padding: EdgeInsets.all(10.0)),
+                    new Text(
+                      'Select Recepients',
+                      style: new TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Radio(
+                          value: 0,
+                          groupValue: _radioValue,
+                          onChanged: _handleRadioValueChange,
+                        ),
+                        new Text(
+                          'All Class',
+                          style: new TextStyle(fontSize: 14.0),
+                        ),
+                        new Radio(
+                          value: 1,
+                          groupValue: _radioValue,
+                          onChanged: _handleRadioValueChange,
+                        ),
+                        new Text(
+                          'All friends',
+                          style: new TextStyle(fontSize: 14.0),
+                        ),
+                        new Radio(
+                          value: 2,
+                          groupValue: _radioValue,
+                          onChanged: _handleRadioValueChange,
+                        ),
+                        new Text(
+                          'Select',
+                          style: new TextStyle(fontSize: 14.0),
+                        ),
+                      ],
+                    ),
+                    new Padding(padding: EdgeInsets.all(10.0)),
                     RaisedButton(
                       child: Text("Submit"),
                       shape: RoundedRectangleBorder(
@@ -197,6 +246,7 @@ class _MeetingPageState extends State<MeetingPage> {
                             "time": time,
                             "location": locationInputController.text,
                             "class": classInputController.text,
+                            "recepient": _radioValue
                           }); // adds to database
 
                           // clears form fields on submit
