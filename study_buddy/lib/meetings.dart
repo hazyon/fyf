@@ -32,12 +32,8 @@ class _MeetingsState extends State<Meetings> {
     super.initState();
   }
 
-  //TODO: fix createMeeting not loading, needs material widget
-  _showDialog() async {
-    await showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => CreateMeetingPage(uid: widget.uid),
-    );
+  Future navigateToSubPage(context) async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateMeetingPage()));
   }
 
   @override
@@ -74,7 +70,9 @@ class _MeetingsState extends State<Meetings> {
             )),
       ),
       RaisedButton(
-        onPressed: _showDialog,
+        onPressed: (){
+          navigateToSubPage(context);
+        },
         child: Icon(Icons.add),
       )
     ]);

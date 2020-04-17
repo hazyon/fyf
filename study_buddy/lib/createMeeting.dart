@@ -68,7 +68,8 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
       });
     }
 
-    return Container(
+    return Scaffold(
+      body: Container(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
@@ -265,7 +266,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
               ),
             ],
           ),
-        ));
+        )));
   }
 
   // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
