@@ -1,0 +1,772 @@
+[
+  {
+    "Name": "ADV DRAWING & PAINTING",
+    "Teacher": "Foran, Jacob",
+    "Department": "Arts"
+  },
+  {
+    "Name": "ADV PHOTOGRAPHY",
+    "Teacher": "Wong, Barry",
+    "Department": "Arts"
+  },
+  {
+    "Name": "ADV THEATER PRODUCTION",
+    "Teacher": "Snapp, Al",
+    "Department": "Arts"
+  },
+  {
+    "Name": "ADVANCED 3D ART",
+    "Teacher": "Foran, Jacob",
+    "Department": "Arts"
+  },
+  {
+    "Name": "ADVANCED 3D ART",
+    "Teacher": "Rockwell, Jodi",
+    "Department": "Arts"
+  },
+  {
+    "Name": "CONCERT CHOIR",
+    "Teacher": "Clementi, Mary",
+    "Department": "Arts"
+  },
+  {
+    "Name": "DRAMA I",
+    "Teacher": "Dennis, Alban",
+    "Department": "Arts"
+  },
+  {
+    "Name": "DRAMA I",
+    "Teacher": "Place, Michael",
+    "Department": "Arts"
+  },
+  {
+    "Name": "DRAMA II",
+    "Teacher": "Dennis, Alban",
+    "Department": "Arts"
+  },
+  {
+    "Name": "DRAMA III",
+    "Teacher": "Place, Michael",
+    "Department": "Arts"
+  },
+  {
+    "Name": "DRAMA IV",
+    "Teacher": "Dennis, Alban",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTERMEDIATE 3D ART",
+    "Teacher": "Foran, Jacob",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTERMEDIATE 3D ART",
+    "Teacher": "Rockwell, Jodi",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTERMEDIATE DRAW & PAINT",
+    "Teacher": "Foran, Jacob",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTERMEDIATE PHOTOGRAPHY",
+    "Teacher": "Wong, Barry",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTRO DRAWING & PAINTING",
+    "Teacher": "Rockwell, Jodi",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTRO TO CERAMICS",
+    "Teacher": "Rockwell, Jodi",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTRO TO PHOTOGRAPHY",
+    "Teacher": "Wong, Barry",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTRO TO SCULPTURE",
+    "Teacher": "Foran, Jacob",
+    "Department": "Arts"
+  },
+  {
+    "Name": "INTRO TO THEATER PRODUCTION",
+    "Teacher": "Snapp, Al",
+    "Department": "Arts"
+  },
+  {
+    "Name": "JAZZ BAND",
+    "Teacher": "Patterson, Eric",
+    "Department": "Arts"
+  },
+  {
+    "Name": "Music Lessons",
+    "Teacher": "Krus, Andrew",
+    "Department": "Arts"
+  },
+  {
+    "Name": "SYMPHONY ORCHESTRA",
+    "Teacher": "Krus, Andrew",
+    "Department": "Arts"
+  },
+  {
+    "Name": "US Cast Lists",
+    "Teacher": "Dennis, Alban",
+    "Department": "Arts"
+  },
+  {
+    "Name": "US Cast Lists",
+    "Teacher": "Place, Michael",
+    "Department": "Arts"
+  },
+  {
+    "Name": "AMERICAN CULTURAL STUDIES II - S",
+    "Teacher": "Aegerter, Lindsay",
+    "Department": "English"
+  },
+  {
+    "Name": "AMERICAN CULTURAL STUDIES II - S",
+    "Teacher": "Christensen, Erik",
+    "Department": "English"
+  },
+  {
+    "Name": "AMERICAN CULTURAL STUDIES II - S",
+    "Teacher": "Chu, Emily",
+    "Department": "English"
+  },
+  {
+    "Name": "AMERICAN CULTURAL STUDIES II - S",
+    "Teacher": "Downing, Avery",
+    "Department": "English"
+  },
+  {
+    "Name": "AMERICAN CULTURAL STUDIES II - S",
+    "Teacher": "Goss, Malikah",
+    "Department": "English"
+  },
+  {
+    "Name": "AMERICAN CULTURAL STUDIES II - S",
+    "Teacher": "Kaz, Amy",
+    "Department": "English"
+  },
+  {
+    "Name": "AMERICAN CULTURAL STUDIES II - S",
+    "Teacher": "Maiorano, Rachel",
+    "Department": "English"
+  },
+  {
+    "Name": "AMERICAN STUDIES",
+    "Teacher": "Christy, Mary Anne",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 10",
+    "Teacher": "Aegerter, Lindsay",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 10",
+    "Teacher": "Christensen, Erik",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 10",
+    "Teacher": "Chu, Emily",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 10",
+    "Teacher": "Downing, Avery",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 9",
+    "Teacher": "Berrada, Fakhereddine",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 9",
+    "Teacher": "Kaz, Amy",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 9",
+    "Teacher": "Lapsley, Robert",
+    "Department": "English"
+  },
+  {
+    "Name": "ENGLISH 9",
+    "Teacher": "Yorks, Katherine",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: ASIAN AMERICAN - S",
+    "Teacher": "Chu, Emily",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: DISEASES - S",
+    "Teacher": "Lapsley, Robert",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: FICTION WRITING - S",
+    "Teacher": "Wilks, Felicia",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: FILM (NARRATIVE ANALYSIS) - S",
+    "Teacher": "Goss, Malikah",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: GENDER - S",
+    "Teacher": "Berrada, Fakhereddine",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: INT'L FILM STUDIES - S",
+    "Teacher": "Culhane, Brian",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: LIT OF MIGRATION - S",
+    "Teacher": "Lapsley, Robert",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: UTOPIAS/DYSTOPIAS - S",
+    "Teacher": "Berrada, Fakhereddine",
+    "Department": "English"
+  },
+  {
+    "Name": "LIT EXP: UTOPIAS/DYSTOPIAS - S",
+    "Teacher": "Christensen, Erik",
+    "Department": "English"
+  },
+  {
+    "Name": "A CULTURAL HISTORY OF SEATTLE - S",
+    "Teacher": "Nau, James",
+    "Department": "History"
+  },
+  {
+    "Name": "BIG HISTORY",
+    "Teacher": "Dunkin, David",
+    "Department": "History"
+  },
+  {
+    "Name": "BIG HISTORY",
+    "Teacher": "Pace, Emily",
+    "Department": "History"
+  },
+  {
+    "Name": "COMPARATIVE GOVERNMENT - S",
+    "Teacher": "Souser, William",
+    "Department": "History"
+  },
+  {
+    "Name": "FREEDOM, CRIME AND LAW - S",
+    "Teacher": "Christy, Mary Anne",
+    "Department": "History"
+  },
+  {
+    "Name": "GEOPOLITICS & GAME THEORY - S",
+    "Teacher": "Dunkin, David",
+    "Department": "History"
+  },
+  {
+    "Name": "MACROECONOMICS - S",
+    "Teacher": "Dunkin, David",
+    "Department": "History"
+  },
+  {
+    "Name": "MODERN WORLD & YOU: GSL PERU",
+    "Teacher": "Wright, Stephanie",
+    "Department": "History"
+  },
+  {
+    "Name": "NEWS & MEDIA LIT. IN THE DIGI.  ERA - S",
+    "Teacher": "Selim, Nadia",
+    "Department": "History"
+  },
+  {
+    "Name": "PSYCHOLOGY - S",
+    "Teacher": "Brooks, Kathryn",
+    "Department": "History"
+  },
+  {
+    "Name": "RELIG. STUDIES: BELIEF/DISBELIEF - S",
+    "Teacher": "Nau, James",
+    "Department": "History"
+  },
+  {
+    "Name": "SEXUALITY & THE LAW - S",
+    "Teacher": "Wright, Stephanie",
+    "Department": "History"
+  },
+  {
+    "Name": "THE MODERN WORLD & YOU",
+    "Teacher": "Altomerianos, Damaris",
+    "Department": "History"
+  },
+  {
+    "Name": "THE MODERN WORLD & YOU",
+    "Teacher": "Nau, James",
+    "Department": "History"
+  },
+  {
+    "Name": "THE MODERN WORLD & YOU",
+    "Teacher": "Salter, Daren",
+    "Department": "History"
+  },
+  {
+    "Name": "THE MODERN WORLD & YOU",
+    "Teacher": "Selim, Nadia",
+    "Department": "History"
+  },
+  {
+    "Name": "THE MODERN WORLD & YOU",
+    "Teacher": "Souser, William",
+    "Department": "History"
+  },
+  {
+    "Name": "UNITED STATES HISTORY",
+    "Teacher": "Altomerianos, Damaris",
+    "Department": "History"
+  },
+  {
+    "Name": "UNITED STATES HISTORY",
+    "Teacher": "Christy, Mary Anne",
+    "Department": "History"
+  },
+  {
+    "Name": "UNITED STATES HISTORY",
+    "Teacher": "Salter, Daren",
+    "Department": "History"
+  },
+  {
+    "Name": "WORLD HIST: THE HUMAN WEB",
+    "Teacher": "Brooks, Kathryn",
+    "Department": "History"
+  },
+  {
+    "Name": "WORLD HIST: THE HUMAN WEB",
+    "Teacher": "Pace, Emily",
+    "Department": "History"
+  },
+  {
+    "Name": "WORLD HIST: THE HUMAN WEB",
+    "Teacher": "Selim, Nadia",
+    "Department": "History"
+  },
+  {
+    "Name": "WORLD HIST: THE HUMAN WEB",
+    "Teacher": "Souser, William",
+    "Department": "History"
+  },
+  {
+    "Name": "CHINESE I",
+    "Teacher": "Setless, Yanyan",
+    "Department": "Languages"
+  },
+  {
+    "Name": "CHINESE II",
+    "Teacher": "Setless, Yanyan",
+    "Department": "Languages"
+  },
+  {
+    "Name": "CHINESE III",
+    "Teacher": "Matthewson, Cheyenne",
+    "Department": "Languages"
+  },
+  {
+    "Name": "CHINESE IV",
+    "Teacher": "Matthewson, Cheyenne",
+    "Department": "Languages"
+  },
+  {
+    "Name": "CHINESE V",
+    "Teacher": "Matthewson, Cheyenne",
+    "Department": "Languages"
+  },
+  {
+    "Name": "FRENCH I",
+    "Teacher": "Kranwinkle, Mark",
+    "Department": "Languages"
+  },
+  {
+    "Name": "FRENCH II",
+    "Teacher": "Maillard, Celine",
+    "Department": "Languages"
+  },
+  {
+    "Name": "FRENCH III",
+    "Teacher": "Kranwinkle, Mark",
+    "Department": "Languages"
+  },
+  {
+    "Name": "FRENCH IV",
+    "Teacher": "Brau, Veronique",
+    "Department": "Languages"
+  },
+  {
+    "Name": "FRENCH IV/V: GSL FRENCH POLYNESIA",
+    "Teacher": "Brau, Veronique",
+    "Department": "Languages"
+  },
+  {
+    "Name": "LATIN I",
+    "Teacher": "Freedman, Elissa",
+    "Department": "Languages"
+  },
+  {
+    "Name": "LATIN II",
+    "Teacher": "Searl, Logan",
+    "Department": "Languages"
+  },
+  {
+    "Name": "LATIN III",
+    "Teacher": "Searl, Logan",
+    "Department": "Languages"
+  },
+  {
+    "Name": "LATIN IV",
+    "Teacher": "Searl, Logan",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH I",
+    "Teacher": "Bensadon, Debbie",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH I",
+    "Teacher": "Morales Ortiz, Maralisa",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH II",
+    "Teacher": "Harmer, Kelsey",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH II",
+    "Teacher": "Morales Ortiz, Maralisa",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH III",
+    "Teacher": "Bensadon, Debbie",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH III",
+    "Teacher": "Harmer, Kelsey",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH IV",
+    "Teacher": "Borreguero, Paloma",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH IV",
+    "Teacher": "Heath, Deborah",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH V",
+    "Teacher": "Borreguero, Paloma",
+    "Department": "Languages"
+  },
+  {
+    "Name": "SPANISH V",
+    "Teacher": "Heath, Deborah",
+    "Department": "Languages"
+  },
+  {
+    "Name": "ACCELERATED CALCULUS AB",
+    "Teacher": "Erickson, Karl",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED CALCULUS AB",
+    "Teacher": "Orr, Angie",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED CALCULUS BC",
+    "Teacher": "Platt, John",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED CALCULUS BC",
+    "Teacher": "Shiner, Zachary",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED GEOMETRY",
+    "Teacher": "Butler, Thomas",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED GEOMETRY",
+    "Teacher": "Orr, Angie",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED PRECALCULUS",
+    "Teacher": "Kresser, Todd",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED PRECALCULUS",
+    "Teacher": "McKinley, Ben",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ACCELERATED STATISTICS",
+    "Teacher": "Martin, Barbara",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ADV PROJ COMP SCI & ENGIN - S",
+    "Teacher": "O'Neal, Amanda",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ALGEBRA I",
+    "Teacher": "McKinley, Ben",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ALGEBRA II",
+    "Teacher": "Erickson, Karl",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ALGEBRA II",
+    "Teacher": "Martin, Barbara",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "ALGEBRA II",
+    "Teacher": "Shiner, Zachary",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "COMPUTER SCIENCE III - S",
+    "Teacher": "Martin, Barbara",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "COMPUTER SCIENCE III - S",
+    "Teacher": "O'Neal, Amanda",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "GEOMETRY",
+    "Teacher": "Butler, Thomas",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS CALCULUS BC",
+    "Teacher": "Butler, Thomas",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS CALCULUS BC",
+    "Teacher": "Lajoie, James",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS GEOMETRY",
+    "Teacher": "Lajoie, James",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS GEOMETRY",
+    "Teacher": "Platt, John",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS GEOMETRY",
+    "Teacher": "Shiner, Zachary",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS MULTIVARIABLE CALCULUS",
+    "Teacher": "Badus, Alina",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS MULTIVARIABLE CALCULUS",
+    "Teacher": "Kresser, Todd",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS PRECALCULUS",
+    "Teacher": "Badus, Alina",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "HONORS PRECALCULUS",
+    "Teacher": "Platt, John",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "PRECALCULUS",
+    "Teacher": "Erickson, Karl",
+    "Department": "Mathematics"
+  },
+  {
+    "Name": "9th GRADE WELLNESS",
+    "Teacher": "Long, Eleanor",
+    "Department": "PE"
+  },
+  {
+    "Name": "9th GRADE WELLNESS",
+    "Teacher": "Norris, Trina",
+    "Department": "PE"
+  },
+  {
+    "Name": "9th GRADE WELLNESS",
+    "Teacher": "Porter, Doug",
+    "Department": "PE"
+  },
+  {
+    "Name": "9th GRADE WELLNESS",
+    "Teacher": "Tucker, Kivonne",
+    "Department": "PE"
+  },
+  {
+    "Name": "GAMES & MOVEMENT - S",
+    "Teacher": "Porter, Doug",
+    "Department": "PE"
+  },
+  {
+    "Name": "STRENGTH & CONDITIONING - S",
+    "Teacher": "Huegli, Richard",
+    "Department": "PE"
+  },
+  {
+    "Name": "STRENGTH & CONDITIONING - S",
+    "Teacher": "Porter, Doug",
+    "Department": "PE"
+  },
+  {
+    "Name": "YOGA FUSION - S",
+    "Teacher": "Long, Eleanor",
+    "Department": "PE"
+  },
+  {
+    "Name": "ADV BIO: PHYSIOLOGY",
+    "Teacher": "Abrey, Caryn",
+    "Department": "Science"
+  },
+  {
+    "Name": "ADV CALCULUS-BASED PHYSICS",
+    "Teacher": "Lowe, Gregory",
+    "Department": "Science"
+  },
+  {
+    "Name": "ADV MOLECULAR & CELLULAR BIO",
+    "Teacher": "Parry, Devin",
+    "Department": "Science"
+  },
+  {
+    "Name": "ADV PHYSICS: APPLIC & ENGINEERING",
+    "Teacher": "Town, Michael",
+    "Department": "Science"
+  },
+  {
+    "Name": "ADVANCED ECOLOGICAL STUDIES",
+    "Teacher": "Joneschild, David",
+    "Department": "Science"
+  },
+  {
+    "Name": "BIOLOGY",
+    "Teacher": "Abrey, Caryn",
+    "Department": "Science"
+  },
+  {
+    "Name": "BIOLOGY",
+    "Teacher": "Joneschild, David",
+    "Department": "Science"
+  },
+  {
+    "Name": "BIOLOGY",
+    "Teacher": "Stewart, Chelsea",
+    "Department": "Science"
+  },
+  {
+    "Name": "CHEMISTRY",
+    "Teacher": "Wahlin, Michelle",
+    "Department": "Science"
+  },
+  {
+    "Name": "HONORS CHEMISTRY",
+    "Teacher": "Jewett, Dan",
+    "Department": "Science"
+  },
+  {
+    "Name": "HONORS CHEMISTRY",
+    "Teacher": "Stewart, Chelsea",
+    "Department": "Science"
+  },
+  {
+    "Name": "HONORS PHYSICS",
+    "Teacher": "Erickson, Ava",
+    "Department": "Science"
+  },
+  {
+    "Name": "HONORS PHYSICS",
+    "Teacher": "Town, Michael",
+    "Department": "Science"
+  },
+  {
+    "Name": "INTRO TO SPORTS MEDICINE - S",
+    "Teacher": "Gudiño, Antonio",
+    "Department": "Science"
+  },
+  {
+    "Name": "ORGANIC CHEMISTRY",
+    "Teacher": "de Grys, Hans",
+    "Department": "Science"
+  },
+  {
+    "Name": "PHYSICS",
+    "Teacher": "Erickson, Ava",
+    "Department": "Science"
+  },
+  {
+    "Name": "PHYSICS",
+    "Teacher": "Lowe, Gregory",
+    "Department": "Science"
+  },
+  {
+    "Name": "ASSEMBLY COMMITTEE",
+    "Teacher": "Harmer, Kelsey",
+    "Department": "Elective"
+  },
+  {
+    "Name": "SCHOOL NEWSPAPER: TATLER",
+    "Teacher": "Collins, James",
+    "Department": "Elective"
+  },
+  {
+    "Name": "STUDENT GOVERNMENT",
+    "Teacher": "Sjoberg, Meredith",
+    "Department": "Elective"
+  },
+  {
+    "Name": "YEARBOOK: NUMIDIAN",
+    "Teacher": "Wahlin, Michelle",
+    "Department": "Elective"
+  }
+]

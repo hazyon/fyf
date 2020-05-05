@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/rendering.dart';
 
 import './meetingCustomCard.dart';
 import './createMeeting.dart';
@@ -27,13 +25,14 @@ class _MeetingsState extends State<Meetings> {
         .collection("meetings")
         .document(widget.uid)
         .get()
-        .then((DocumentSnapshot result) {
-    }).catchError((err) => print(err));
+        .then((DocumentSnapshot result) {})
+        .catchError((err) => print(err));
     super.initState();
   }
 
   Future navigateToSubPage(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateMeetingPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CreateMeetingPage()));
   }
 
   @override
@@ -42,35 +41,36 @@ class _MeetingsState extends State<Meetings> {
       Expanded(
         child: SizedBox(
             child: StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance
-                  .collection('meetings')
-                  .orderBy("date")
-                  .snapshots(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return new Text('Loading...');
-                  default:
-                    return new ListView(
-                      children:
+          stream: Firestore.instance
+              .collection('meetings')
+              .orderBy("date")
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                return new ListView(
+                  children:
                       snapshot.data.documents.map((DocumentSnapshot document) {
-                        return new MeetingCustomCard(
-                          course: document['class'],
-                          date: document['date'],
-                          description: document['description'],
-                          location: document['location'],
-                          time: document['time'],
-                          title: document["title"],);
-                      }).toList(),
+                    return new MeetingCustomCard(
+                      course: document['class'],
+                      date: document['date'],
+                      description: document['description'],
+                      location: document['location'],
+                      time: document['time'],
+                      title: document["title"],
                     );
-                }
-              },
-            )),
+                  }).toList(),
+                );
+            }
+          },
+        )),
       ),
       RaisedButton(
-        onPressed: (){
+        onPressed: () {
           navigateToSubPage(context);
         },
         child: Icon(Icons.add),
