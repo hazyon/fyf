@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import './control.dart';
+import './selectFrees.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({Key key}) : super(key: key);
@@ -192,11 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ControlPage(
-                                                        title:
-                                                            firstNameInputController
-                                                                    .text +
-                                                                "'s Tasks",
+                                                      SelectFrees(
                                                         uid: currentUser.uid,
                                                       )),
                                               (_) => false),
