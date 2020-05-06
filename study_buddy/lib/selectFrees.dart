@@ -1,3 +1,5 @@
+// set up for a group of check boxes is based on the following tutorial https://flutter-examples.com/get-multiple-checkbox-checked-value-in-flutter/
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
