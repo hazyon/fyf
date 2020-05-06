@@ -26,10 +26,10 @@ class MyAppState extends State {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-            hintColor: Colors.black,
-            primaryColor: Color(0xFF4EB3D4),
-            canvasColor: Colors.white,
-            fontFamily: "Montserrat",
+          hintColor: Colors.black,
+          primaryColor: Colors.blue,
+          canvasColor: Colors.white,
+          fontFamily: "Montserrat",
         ),
         title: "Study Buddy Test",
         home: SplashPage(),

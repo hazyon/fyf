@@ -65,11 +65,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     //new Padding(padding: EdgeInsets.only(top: 1.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'First Name',
-                          //hintText: "John"
-                          border: OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                        labelText: 'First Name',
+                        border: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
                         ),
                       ),
                       controller: firstNameInputController,
@@ -83,12 +82,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     new Padding(padding: EdgeInsets.all(5.0)),
                     TextFormField(
                         decoration: InputDecoration(
-                            labelText: 'Last Name',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(25.0),
-                              borderSide: new BorderSide(),
-                            ),
-                            //hintText: "Doe"
+                          labelText: 'Last Name',
+                          border: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(25.0),
+                            borderSide: new BorderSide(),
+                          ),
                         ),
                         controller: lastNameInputController,
                         validator: (value) {
@@ -101,7 +99,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     RaisedButton(
                       child: Text("Update Name"),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(16.0))),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () {
@@ -111,7 +110,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 "fname": firstNameInputController.text,
                                 "surname": lastNameInputController.text
                               })
-                              .catchError((err) => print(err))  // TODO: this line might be optional?
+                              .catchError((err) => print(
+                                  err)) // TODO: this line might be optional?
                               .catchError((err) => print(err));
                         }
                       },
@@ -125,11 +125,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     new Padding(padding: EdgeInsets.all(10.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'Password',
-                          border: OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
-                          ),
+                        labelText: 'Password',
+                        border: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
+                        ),
                       ),
                       controller: pwdInputController,
                       obscureText: true,
@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     new Padding(padding: EdgeInsets.all(5.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'Confirm Password',
+                        labelText: 'Confirm Password',
                         border: OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(25.0),
                           borderSide: new BorderSide(),
@@ -152,7 +152,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     RaisedButton(
                       child: Text("Change Password"),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(16.0))),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () {
