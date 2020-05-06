@@ -9,17 +9,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         children: <Widget>[
         Text("Home", style: TextStyle(fontSize: 36),),
-      FlatButton(
-      child: Text('Add Hardcoded Task'),
-      onPressed: () {
-      Firestore.instance
-          .collection('tasks')
-          .add({
-            "title": "new meeting",
-            "description": "at a specific time"
-          })
-          .catchError((err) => print(err));
-      })]
+      ]
     ));
   }
 }
