@@ -55,6 +55,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
 
     // the form itself
     return Scaffold(
+      appBar: AppBar(title: new Text("Create Meeting"),),
         body: Container(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
