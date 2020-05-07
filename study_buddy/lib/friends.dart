@@ -101,7 +101,7 @@ class _FriendsState extends State<Friends> {
         .collection("users")
         .getDocuments().then((docs) {
           docs.documents.forEach((doc) {
-            emails.add(doc["email"]);
+            emails.add(doc["email"] + " (" + doc["fname"] + " " + doc["surname"] + ")");
           });
     });
     super.initState();
@@ -381,7 +381,7 @@ class _MyDialogContentState extends State<MyDialogContent> {
       itemBuilder: (BuildContext context, int index) {
         return (filter == null || filter == "")
             ? new Card(child: new Text(widget.emails[index]))
-            : widget.emails[index].contains(filter)
+            : widget.emails[index].toLowerCase().contains(filter.toLowerCase())
             ? new Card(child: new Text(widget.emails[index]))
             : new Container();
       },
