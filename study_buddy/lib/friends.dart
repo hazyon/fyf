@@ -1,10 +1,14 @@
 // adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
 // synchronous and asynchronous validator set up is adapted from https://medium.com/@nocnoc/the-secret-to-async-validation-on-flutter-forms-4b273c667c03
+// filtering is based on this tutorial https://medium.com/@thedome6/how-to-create-a-searchable-filterable-listview-in-flutter-4faf3e300477
+
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 import './customCard.dart';
 
@@ -31,6 +35,10 @@ class Friends extends StatefulWidget {
 class _FriendsState extends State<Friends> {
   final GlobalKey<FormState> _friendFormKey = GlobalKey<FormState>();
   TextEditingController taskTitleInputController;
+  String filter;
+  List<String> emails = [];
+  List<String> tmpEmailsArray = [];
+  StreamController<List<String>> emailsStream;
   //TextEditingController taskDescripInputController;
   //String currentEmailUID;
   var recipient;
@@ -47,8 +55,37 @@ class _FriendsState extends State<Friends> {
 
   @override
   initState() {
+    // TODO: commenting out the following text edit line
     taskTitleInputController = new TextEditingController();
+    //emailsStream = StreamController<List<String>>();
+    //emailsStream.add(tmpEmailsArray);
+   /* taskTitleInputController.addListener(() {
+      filter = taskTitleInputController.text;
+      tmpEmailsArray.clear();
+      if (filter == null || filter == "") {
+        for (String email in emails)
+          {
+            tmpEmailsArray.add(email);
+          }
+      }
+      else
+        {
+          for (String email in emails)
+            {
+              if (email.contains(filter))
+                {
+                  tmpEmailsArray.add(email);
+                }
+            }
+        }
+
+      //_showDialog();
+      /*setState(() {
+        filter = taskTitleInputController.text;
+      });*/
+    });*/
     //currentEmailUID = "UIDplaceholder";
+
     Firestore.instance
         .collection("users")
         .document(widget.uid)
@@ -60,7 +97,21 @@ class _FriendsState extends State<Friends> {
       _senderEmail = result["email"];
     }).catchError((err) => print(err));
     //taskDescripInputController = new TextEditingController();
+    Firestore.instance
+        .collection("users")
+        .getDocuments().then((docs) {
+          docs.documents.forEach((doc) {
+            emails.add(doc["email"]);
+          });
+    });
     super.initState();
+  }
+
+  // TODO: I don't know if the following is necessary
+  @override
+  void dispose() {
+    taskTitleInputController.dispose();
+    super.dispose();
   }
 
   String emailValidator(String value) {
@@ -120,6 +171,34 @@ class _FriendsState extends State<Friends> {
                       validator: emailValidator,
                       onSaved: (value) => _emailOfRecipient = value,
                     ),
+                    Container(
+                      width: double.maxFinite,
+                      child: SizedBox(
+                        height: 200.0,
+                        child: new MyDialogContent(emails: emails, textController: taskTitleInputController,)
+                        /*StreamBuilder(
+                          stream: emailsStream.stream,
+                          builder: (context, snapshot) {
+                            return tmpEmailsArray.isEmpty ? new Container() : new Container(child: ListView.builder(
+                              itemCount: tmpEmailsArray.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return new Card(child: new Text(tmpEmailsArray[index]));
+                              },
+                            ));
+                          },
+                        )*/
+                        /*ListView.builder(
+                          itemCount: emails.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return filter == null || filter == ""
+                                ? new Card(child: new Text(emails[index]))
+                                : emails[index].contains(filter)
+                                    ? new Card(child: new Text(emails[index]))
+                                    : new Container();
+                          },
+                        ),*/
+                      ),
+                    )
                   ],
                 )),
           ],
@@ -140,8 +219,6 @@ class _FriendsState extends State<Friends> {
 
                   // dismiss keyboard during async call
                   FocusScope.of(context).requestFocus(new FocusNode());
-
-                  // TODO: might need to set state here
 
                   //Future.delayed(Duration(seconds: 1), () {
                   Firestore.instance
@@ -238,15 +315,16 @@ class _FriendsState extends State<Friends> {
                   children:
                       snapshot.data.documents.map((DocumentSnapshot document) {
                     return new CustomCard(
-                        name: document['fullName'],
-                        email: document['email'],
-                        date: document['date'],
-                        status: document['status'],
-                        uid: document["uid"],
-                    docId: document.documentID,
-                    userEmail: _senderEmail,
-                    userFullName: _senderFullName,
-                    userUID: widget.uid,);
+                      name: document['fullName'],
+                      email: document['email'],
+                      date: document['date'],
+                      status: document['status'],
+                      uid: document["uid"],
+                      docId: document.documentID,
+                      userEmail: _senderEmail,
+                      userFullName: _senderFullName,
+                      userUID: widget.uid,
+                    );
                   }).toList(),
                 );
             }
@@ -258,5 +336,55 @@ class _FriendsState extends State<Friends> {
         child: Icon(Icons.add),
       )
     ]);
+  }
+}
+
+class MyDialogContent extends StatefulWidget {
+  MyDialogContent({Key key, this.emails, this.textController}) : super(key: key);
+
+  List<String> emails;
+  TextEditingController textController;
+
+
+  @override
+  _MyDialogContentState createState() => new _MyDialogContentState();
+}
+
+class _MyDialogContentState extends State<MyDialogContent> {
+
+  String filter;
+
+  @override
+  void initState() {
+    //widget.textController = new TextEditingController();
+    widget.textController.addListener( () {
+      if (!mounted)
+        {return;}
+      setState(() {
+        filter = widget.textController.text;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return ListView.builder(
+      itemCount: widget.emails.length,
+      itemBuilder: (BuildContext context, int index) {
+        return (filter == null || filter == "")
+            ? new Card(child: new Text(widget.emails[index]))
+            : widget.emails[index].contains(filter)
+            ? new Card(child: new Text(widget.emails[index]))
+            : new Container();
+      },
+    );
   }
 }
