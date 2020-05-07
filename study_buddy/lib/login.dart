@@ -14,9 +14,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+
   TextEditingController emailInputController;
   TextEditingController pwdInputController;
 
+  /// instantiates controllers
   @override
   initState() {
     emailInputController = new TextEditingController();
@@ -24,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
+  /// validates email address
   String emailValidator(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -35,14 +38,16 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  /// validates password
   String pwdValidator(String value) {
     if (value.length == 0) {
       return 'Password can\'t be empty';
     } else {
-      return 'Password is incorrect';
+      return null;
     }
   }
 
+  /// login page
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,36 +70,59 @@ class _LoginPageState extends State<LoginPage> {
                   new Padding(padding: EdgeInsets.only(top: 60)),
                   TextFormField(
                     decoration: new InputDecoration(
-                        hintText: 'Email',
-                        icon: new Icon(
-                          Icons.mail,
-                          color: Colors.grey,
-                        )),
+                      hintText: 'Email',
+                      prefixIcon: Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: new Icon(Icons.mail, color: Colors.blue)),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                        borderSide: const BorderSide(color: Color(0xffD3D3D3)),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                        borderSide: const BorderSide(color: Color(0xffD3D3D3)),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100)),
+                    ),
                     controller: emailInputController,
                     keyboardType: TextInputType.emailAddress,
                     validator: emailValidator,
                   ),
+                  new Padding(padding: EdgeInsets.only(top: 20)),
                   TextFormField(
                     decoration: new InputDecoration(
-                        hintText: 'Password',
-                        icon: new Icon(
-                          Icons.lock,
-                          color: Colors.grey,
-                        )),
+                      hintText: 'Password',
+                      prefixIcon: Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: new Icon(Icons.lock, color: Colors.blue)),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                        borderSide: const BorderSide(color: Color(0xffD3D3D3)),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                        borderSide: const BorderSide(color: Color(0xffD3D3D3)),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100)),
+                    ),
                     controller: pwdInputController,
-                    obscureText: true,
+                    obscureText: true, // hides password
                     validator: pwdValidator,
                   ),
                   new Padding(
-                      padding: EdgeInsets.only(top: 30),
+                      padding: EdgeInsets.only(top: 20),
                       child: SizedBox(
                         width: 800,
+                        height: 55,
                         child: RaisedButton(
-                          child: Text("Login"),
+                          child:
+                              Text("LOGIN", style: new TextStyle(fontSize: 16)),
                           color: Theme.of(context).primaryColor,
                           textColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
+                              borderRadius: new BorderRadius.circular(100.0)),
                           onPressed: () {
                             if (_loginFormKey.currentState.validate()) {
                               FirebaseAuth.instance
@@ -122,7 +150,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       )),
                   FlatButton(
-                    child: Text("Create an account"),
+                    padding: EdgeInsets.only(top: 20),
+                    child: Text("Create an account",
+                        style: new TextStyle(fontSize: 16, color: Colors.grey)),
                     onPressed: () {
                       Navigator.pushNamed(context, "/register");
                     },

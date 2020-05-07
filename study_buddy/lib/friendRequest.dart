@@ -40,17 +40,22 @@ class FriendRequestDescription extends StatelessWidget {
         .document(uid)
         .collection("friends")
         .where("email", isEqualTo: userEmail)
-        .getDocuments().then((QuerySnapshot docs) {
+        .getDocuments()
+        .then((QuerySnapshot docs) {
       //return "I have the documents";
       //setState(() {
       if (docs.documents.isNotEmpty) {
         // emails are unique, so there should only be one
         DocumentSnapshot toDelete = docs.documents[0];
 
-        Firestore.instance.collection("users").document(uid).collection(
-            "friends").document(toDelete.documentID).delete();
-      }}).catchError((err) => print(err));
-        
+        Firestore.instance
+            .collection("users")
+            .document(uid)
+            .collection("friends")
+            .document(toDelete.documentID)
+            .delete();
+      }
+    }).catchError((err) => print(err));
   }
 
   @override
@@ -106,7 +111,7 @@ class FriendRequestDescription extends StatelessWidget {
                     },
                   ),
                   RaisedButton(
-                      child: Text('Back To HomeScreen'),
+                      child: Text('Back To Home'),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () => Navigator.pop(context)),
@@ -127,7 +132,7 @@ class FriendRequestDescription extends StatelessWidget {
                   Text("Date sent: " + date),
                   Text("Status: " + status),
                   RaisedButton(
-                      child: Text('Back To HomeScreen'),
+                      child: Text('Back to Home'),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () => Navigator.pop(context)),

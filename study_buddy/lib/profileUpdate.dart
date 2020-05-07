@@ -15,11 +15,15 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _updateNameKey = GlobalKey<FormState>();
+
   TextEditingController firstNameInputController;
   TextEditingController lastNameInputController;
+
   final GlobalKey<FormState> _updatePasswordKey = GlobalKey<FormState>();
+
   TextEditingController pwdInputController;
   TextEditingController confirmPwdInputController;
+
   DocumentReference userProfileRef;
 
   @override
@@ -65,11 +69,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     //new Padding(padding: EdgeInsets.only(top: 1.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'First Name',
-                        border: OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(),
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'First Name',
+                        prefixIcon: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: new Icon(Icons.person, color: Colors.blue)),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100.0)),
+                          borderSide:
+                              const BorderSide(color: Color(0xffD3D3D3)),
                         ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100.0)),
+                          borderSide:
+                              const BorderSide(color: Color(0xffD3D3D3)),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)),
                       ),
                       controller: firstNameInputController,
                       validator: (value) {
@@ -82,11 +101,27 @@ class _ProfilePageState extends State<ProfilePage> {
                     new Padding(padding: EdgeInsets.all(5.0)),
                     TextFormField(
                         decoration: InputDecoration(
-                          labelText: 'Last Name',
-                          border: OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          fillColor: Colors.white,
+                          filled: true,
+                          hintText: 'Last Name',
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child:
+                                  new Icon(Icons.person, color: Colors.blue)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100.0)),
+                            borderSide:
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100.0)),
+                            borderSide:
+                                const BorderSide(color: Color(0xffD3D3D3)),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100)),
                         ),
                         controller: lastNameInputController,
                         validator: (value) {
@@ -113,6 +148,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               .catchError((err) => print(
                                   err)) // TODO: this line might be optional?
                               .catchError((err) => print(err));
+                          firstNameInputController.clear();
+                          lastNameInputController.clear();
+                          pwdInputController.clear();
+                          confirmPwdInputController.clear();
                         }
                       },
                     ),
@@ -125,11 +164,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     new Padding(padding: EdgeInsets.all(10.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(),
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Password',
+                        prefixIcon: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: new Icon(Icons.lock, color: Colors.blue)),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100.0)),
+                          borderSide:
+                              const BorderSide(color: Color(0xffD3D3D3)),
                         ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100.0)),
+                          borderSide:
+                              const BorderSide(color: Color(0xffD3D3D3)),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)),
                       ),
                       controller: pwdInputController,
                       obscureText: true,
@@ -138,11 +192,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     new Padding(padding: EdgeInsets.all(5.0)),
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'Confirm Password',
-                        border: OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(),
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Confirm Password',
+                        prefixIcon: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: new Icon(Icons.lock, color: Colors.blue)),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100.0)),
+                          borderSide:
+                              const BorderSide(color: Color(0xffD3D3D3)),
                         ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100.0)),
+                          borderSide:
+                              const BorderSide(color: Color(0xffD3D3D3)),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)),
                       ),
                       controller: confirmPwdInputController,
                       obscureText: true,
@@ -165,6 +234,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 .then((FirebaseUser user) => user
                                         .updatePassword(pwdInputController.text)
                                         .then((result) {
+                                      firstNameInputController.clear();
+                                      lastNameInputController.clear();
                                       pwdInputController.clear();
                                       confirmPwdInputController.clear();
                                     }).catchError((err) => print(err)))

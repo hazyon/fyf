@@ -7,8 +7,7 @@ import './friends.dart';
 import './profileUpdate.dart';
 import './meetings.dart';
 
-class ControlPage extends StatefulWidget
-{
+class ControlPage extends StatefulWidget {
   ControlPage({Key key, this.title, this.uid}) : super(key: key);
 
   final String title;
@@ -18,8 +17,7 @@ class ControlPage extends StatefulWidget
   State<StatefulWidget> createState() => new ControlPageState();
 }
 
-class ControlPageState extends State<ControlPage>
-{
+class ControlPageState extends State<ControlPage> {
   String date;
 
   // the array of pages
@@ -28,7 +26,11 @@ class ControlPageState extends State<ControlPage>
   @override
   void initState() {
     DateTime now = DateTime.now();
-    date = now.year.toString() + "-" + now.month.toString() + "-" + now.day.toString();
+    date = now.year.toString() +
+        "-" +
+        now.month.toString() +
+        "-" +
+        now.day.toString();
     _pageOptions = [
       // the array of pages
       HomePage(),
@@ -48,8 +50,7 @@ class ControlPageState extends State<ControlPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text("Study Buddy"),
+      appBar: AppBar(title: Text("Study Buddy"),
           // log out feature adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
           actions: <Widget>[
             FlatButton(
@@ -59,19 +60,20 @@ class ControlPageState extends State<ControlPage>
                 FirebaseAuth.instance
                     .signOut()
                     .then((result) =>
-                    Navigator.pushReplacementNamed(context, "/login"))
+                        Navigator.pushReplacementNamed(context, "/login"))
                     .catchError((err) => print(err));
               },
             )
-          ]
-      ),
+          ]),
       body: _pageOptions[_selectedPage], // displays correct page
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // so that the navbar doesn't move around and shows up in the correct colors
+        type: BottomNavigationBarType
+            .fixed, // so that the navbar doesn't move around and shows up in the correct colors
         currentIndex: _selectedPage,
         onTap: (int index) {
           setState(() {
-            _selectedPage = index; // this is what actually keeps track of which page the user is on
+            _selectedPage =
+                index; // this is what actually keeps track of which page the user is on
           });
         },
         items: [
@@ -80,21 +82,13 @@ class ControlPageState extends State<ControlPage>
             title: Text("Home"),
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.message),
-              title: Text("Chat")
-          ),
+              icon: Icon(Icons.message), title: Text("Chat")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_call),
-              title: Text("Meetings")
-          ),
+              icon: Icon(Icons.add_box), title: Text("Meetings")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.people_outline),
-              title: Text("Friends")
-          ),
+              icon: Icon(Icons.people), title: Text("Friends")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text("Profile")
-          ),
+              icon: Icon(Icons.account_circle), title: Text("Profile")),
         ],
       ),
     );
