@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     if (value.length == 0) {
       return 'Password can\'t be empty';
     } else {
+      /* TODO: when logging in, you have to consider the possible errors of having a username that doesn't exist and having the incorrect password*/
       return null;
     }
   }
