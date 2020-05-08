@@ -261,6 +261,18 @@ class _ProfilePageState extends State<ProfilePage> {
                         }
                       },
                     ),
+                    new Padding(padding: EdgeInsets.all(50)),
+                    RaisedButton(
+                      child: Text("Classes"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                          BorderRadius.all(Radius.circular(16.0))),
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      onPressed: () {
+
+                      }
+                    ),
                   ]))
             ],
           ),

@@ -62,6 +62,8 @@ class _MeetingsState extends State<Meetings> {
                       location: document['location'],
                       time: document['time'],
                       title: document["title"],
+                      uid: document.documentID,
+                      userUID: widget.uid,
                     );
                   }).toList(),
                 );

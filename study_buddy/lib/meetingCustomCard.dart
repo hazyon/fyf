@@ -1,9 +1,10 @@
 // adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MeetingCustomCard extends StatelessWidget {
-  MeetingCustomCard({@required this.course, this.date, this.description, this.location, this.time, this.title});
+  MeetingCustomCard({@required this.course, this.date, this.description, this.location, this.time, this.title, this.uid, this.userUID});
 
   // information on the card about the meeting
   final course;
@@ -12,6 +13,8 @@ class MeetingCustomCard extends StatelessWidget {
   final location;
   final time;
   final title;
+  final uid;
+  final userUID;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +45,31 @@ class MeetingCustomCard extends StatelessWidget {
                                           //Text("Time: " + time),
                                           Text("Location: " + location),
                                           Text("Description: " + description),
+                                          RaisedButton(
+                                            
+                                            child: Text("Join"),
+                                            color: Theme.of(context).primaryColor,
+                                            textColor: Colors.white,
+                                            onPressed: () {
+                                              Firestore.instance
+                                                  .collection("meetings")
+                                                  .document(uid)
+                                                  .collection('attendees')
+                                                  .add({
+                                                "userUID": userUID,
+                                              }).catchError((err) => print(err));
+
+                                              Firestore.instance
+                                                  .collection("users")
+                                                  .document(userUID)
+                                                  .collection('meetings')
+                                                  .add({
+                                                "meetingUID": uid,
+                                              }).catchError((err) => print(err));
+
+                                              Navigator.pop(context);
+                                            },
+                                          ),
                                           RaisedButton(
                                               child: Text('Back To HomeScreen'),
                                               color: Theme.of(context).primaryColor,
