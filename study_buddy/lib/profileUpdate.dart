@@ -26,9 +26,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   DocumentReference userProfileRef;
 
+  String name;
+
   @override
   initState() {
-    print("Running initState");
     userProfileRef =
         Firestore.instance.collection("users").document(widget.uid);
     // TODO: currently you have to hot reload to show the current value, change so that it automatically loads the current name or it is just blank
@@ -37,9 +38,9 @@ class _ProfilePageState extends State<ProfilePage> {
           new TextEditingController(text: result["fname"]);
       lastNameInputController =
           new TextEditingController(text: result["surname"]);
+      name = result["fname"];
+      print("the name is $name");
     });
-    //firstNameInputController = new TextEditingController(text: "FirstName");
-    //lastNameInputController = new TextEditingController(text: "LastName");
     pwdInputController = new TextEditingController();
     confirmPwdInputController = new TextEditingController();
     super.initState();
@@ -55,12 +56,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    print("Running build");
+    print("running build");
     return Container(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              //new Text("Welcome, $name"),
               new Padding(padding: EdgeInsets.only(top: 10.0)),
               Form(
                 key: _updateNameKey,
@@ -152,6 +154,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           lastNameInputController.clear();
                           pwdInputController.clear();
                           confirmPwdInputController.clear();
+                          _openNewPage(
+                              "Your name has been successfully updated!");
                         }
                       },
                     ),
@@ -240,6 +244,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       confirmPwdInputController.clear();
                                     }).catchError((err) => print(err)))
                                 .catchError((err) => print(err));
+                            _openNewPage(
+                                "Your password has been successfully updated!");
                           } else {
                             showDialog(
                                 context: context,
@@ -263,19 +269,56 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     new Padding(padding: EdgeInsets.all(50)),
                     RaisedButton(
-                      child: Text("Classes"),
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                          BorderRadius.all(Radius.circular(16.0))),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      onPressed: () {
-
-                      }
-                    ),
+                        child: Text("Classes"),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.0))),
+                        color: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                        onPressed: () {}),
                   ]))
             ],
           ),
         ));
+  }
+
+  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
+  void _openNewPage(String message) {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Success'),
+            ),
+            body: new Center(
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 19.0),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 19.0),
+                        ),
+                        Text(
+                          message,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: new TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

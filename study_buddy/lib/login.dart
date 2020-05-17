@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
+
 import './control.dart';
 
 class LoginPage extends StatefulWidget {
@@ -88,7 +90,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     controller: emailInputController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: emailValidator,
+                    validator: (value) {
+                      if (!EmailValidator.validate(value.trim())) {
+                        return "Email format is invalid";
+                      }
+                      return null;
+                    },
+                    //validator: emailValidator,
                   ),
                   new Padding(padding: EdgeInsets.only(top: 20)),
                   TextFormField(
@@ -128,7 +136,9 @@ class _LoginPageState extends State<LoginPage> {
                             if (_loginFormKey.currentState.validate()) {
                               FirebaseAuth.instance
                                   .signInWithEmailAndPassword(
-                                      email: emailInputController.text,
+                                      email: emailInputController.text
+                                          .toLowerCase()
+                                          .trim(),
                                       password: pwdInputController.text)
                                   .then((currentUser) => Firestore.instance
                                       .collection("users")
