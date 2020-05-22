@@ -73,10 +73,21 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                         TextFormField(
                           decoration: InputDecoration(
                             hintText: 'Title',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: titleInputController,
                           validator: (value) {
@@ -86,13 +97,25 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                             return null;
                           },
                         ),
+                        new Padding(padding: EdgeInsets.all(1.0)),
                         TextFormField(
                           decoration: InputDecoration(
                             hintText: 'Description',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: descriptionInputController,
                         ),
@@ -106,14 +129,26 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                           editable: false,
                           decoration: InputDecoration(
                               labelText: 'Date',
-                              border: OutlineInputBorder(
-                                borderRadius: new BorderRadius.circular(17.0),
-                                borderSide: new BorderSide(),
+                              contentPadding: EdgeInsets.only(left: 20),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0)),
+                                borderSide:
+                                    const BorderSide(color: Color(0xffD3D3D3)),
                               ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0)),
+                                borderSide:
+                                    const BorderSide(color: Color(0xffD3D3D3)),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100)),
                               hasFloatingPlaceholder: false),
                           onChanged: (dt) => setState(() => date = dt),
                           // todo: validation???
                         ),
+                        new Padding(padding: EdgeInsets.all(1.0)),
                         DateTimePickerFormField(
                           inputType: InputType.time,
                           initialTime: TimeOfDay.now(),
@@ -122,21 +157,44 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                           decoration: InputDecoration(
                             labelText: 'Time',
                             hasFloatingPlaceholder: false,
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           onChanged: (t) => setState(() => time = t),
                           // todo: validation???
                         ),
+                        new Padding(padding: EdgeInsets.all(1.0)),
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Location',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: locationInputController,
                           validator: (value) {
@@ -149,11 +207,22 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                         new Padding(padding: EdgeInsets.all(10.0)),
                         TextFormField(
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 20),
                             hintText: 'Select Class',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: classInputController,
                           validator: (value) {
