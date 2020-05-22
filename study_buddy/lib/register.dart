@@ -37,13 +37,13 @@ class _RegisterPageState extends State<RegisterPage> {
     super.initState();
   }
 
-  /// validates email address
   void _handleRadioValueChange(int value) {
     setState(() {
       _radioValue = value;
     });
   }
 
+  /// validates email address
   String emailValidator(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -321,7 +321,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   emailInputController.clear(),
                                                   pwdInputController.clear(),
                                                   confirmPwdInputController
-                                                      .clear()
+                                                      .clear(),
                                                 })
                                             .catchError((err) => print(err)))
                                         .catchError((err) => print(err));

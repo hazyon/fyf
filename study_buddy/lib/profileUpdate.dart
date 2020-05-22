@@ -15,21 +15,23 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _updateNameKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _updatePasswordKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _updateGradeKey = GlobalKey<FormState>();
 
   TextEditingController firstNameInputController;
   TextEditingController lastNameInputController;
-
-  final GlobalKey<FormState> _updatePasswordKey = GlobalKey<FormState>();
-
   TextEditingController pwdInputController;
   TextEditingController confirmPwdInputController;
 
   DocumentReference userProfileRef;
 
   String name;
+  int _radioValue;
+  List<int> values = [9, 10, 11, 12];
 
   @override
   initState() {
+    print("running initState");
     userProfileRef =
         Firestore.instance.collection("users").document(widget.uid);
     // TODO: currently you have to hot reload to show the current value, change so that it automatically loads the current name or it is just blank
@@ -43,7 +45,14 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     pwdInputController = new TextEditingController();
     confirmPwdInputController = new TextEditingController();
+    _radioValue = 0; // none of the buttons are selected at the beginning
     super.initState();
+  }
+
+  void _handleRadioValueChange(int value) {
+    setState(() {
+      _radioValue = value;
+    });
   }
 
   String pwdValidator(String value) {
@@ -62,7 +71,8 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              //new Text("Welcome, $name"),
+              // TODO: fix name stuff/make it synchronous
+              new Text("Welcome, $name"),
               new Padding(padding: EdgeInsets.only(top: 10.0)),
               Form(
                 key: _updateNameKey,
@@ -142,14 +152,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       textColor: Colors.white,
                       onPressed: () {
                         if (_updateNameKey.currentState.validate()) {
-                          userProfileRef
-                              .updateData({
-                                "fname": firstNameInputController.text,
-                                "surname": lastNameInputController.text
-                              })
-                              .catchError((err) => print(
-                                  err)) // TODO: this line might be optional?
-                              .catchError((err) => print(err));
+                          userProfileRef.updateData({
+                            "fname": firstNameInputController.text,
+                            "surname": lastNameInputController.text
+                          }).catchError((err) => print(err));
                           firstNameInputController.clear();
                           lastNameInputController.clear();
                           pwdInputController.clear();
@@ -267,7 +273,86 @@ class _ProfilePageState extends State<ProfilePage> {
                         }
                       },
                     ),
-                    new Padding(padding: EdgeInsets.all(50)),
+                    new Padding(padding: EdgeInsets.all(10.0)),
+                    Form(
+                      key: _updateGradeKey,
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            "Grade",
+                            style: new TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Radio(
+                                value: 9,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '9',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                              Radio(
+                                value: 10,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '10',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                              Radio(
+                                value: 11,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '11',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                              Radio(
+                                value: 12,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '12',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                            ],
+                          ),
+                          new Padding(padding: EdgeInsets.all(5.0)),
+                          RaisedButton(
+                            child: Text("Update Grade"),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16.0))),
+                            color: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                            onPressed: () {
+                              if (values.contains(_radioValue)) {
+                                userProfileRef.updateData({
+                                  "grade": _radioValue,
+                                }).catchError((err) => print(err));
+                                // clear controllers and radios
+                                firstNameInputController.clear();
+                                lastNameInputController.clear();
+                                pwdInputController.clear();
+                                confirmPwdInputController.clear();
+                                _radioValue = null;
+                                _openNewPage(
+                                    "Your grade has been successfully updated!");
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                     RaisedButton(
                         child: Text("Classes"),
                         shape: RoundedRectangleBorder(
