@@ -27,7 +27,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
   DateTime date;
   DateTime time;
 
-  int _radioValue = 0;
+  int _radioValue;
 
   @override
   initState() {
@@ -39,23 +39,27 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
     locationInputController = new TextEditingController();
     classInputController = new TextEditingController();
 
+    _radioValue = 0; // none of the buttons are selected at the beginning
+
     super.initState();
+  }
+
+  // for the radio buttons in the form
+  void _handleRadioValueChange(int value) {
+    setState(() {
+      _radioValue = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     print("Running build"); // debug
 
-    // for the radio buttons in the form
-    void _handleRadioValueChange(int value) {
-      setState(() {
-        _radioValue = value;
-      });
-    }
-
     // the form itself
     return Scaffold(
-      appBar: AppBar(title: new Text("Create Meeting"),),
+        appBar: AppBar(
+          title: new Text("Create Meeting"),
+        ),
         body: Container(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
@@ -68,7 +72,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                       children: <Widget>[
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Title',
+                            hintText: 'Title',
                             border: OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(17.0),
                               borderSide: new BorderSide(),
@@ -84,7 +88,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                         ),
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Description',
+                            hintText: 'Description',
                             border: OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(17.0),
                               borderSide: new BorderSide(),
@@ -145,7 +149,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                         new Padding(padding: EdgeInsets.all(10.0)),
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Select Class',
+                            hintText: 'Select Class',
                             border: OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(17.0),
                               borderSide: new BorderSide(),
@@ -225,11 +229,12 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                               });
 
                               // clears form fields on submit
-                              // todo: make sure date and time are cleared; figure out more efficient way to do this
+                              // todo: make sure date and time are cleared
                               titleInputController.clear();
                               descriptionInputController.clear();
                               locationInputController.clear();
                               classInputController.clear();
+                              _radioValue = null;
 
                               _openNewPage(); // success page on submission
                             }
