@@ -31,7 +31,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
 
   @override
   initState() {
-    print("Running initState"); // for debug
+    print("Running initState"); // debug
 
     // instantiate controllers
     titleInputController = new TextEditingController();

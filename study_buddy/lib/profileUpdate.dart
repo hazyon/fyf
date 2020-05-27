@@ -25,7 +25,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   DocumentReference userProfileRef;
 
-  String name;
   int _radioValue;
   List<int> values = [9, 10, 11, 12];
 
@@ -40,8 +39,6 @@ class _ProfilePageState extends State<ProfilePage> {
           new TextEditingController(text: result["fname"]);
       lastNameInputController =
           new TextEditingController(text: result["surname"]);
-      name = result["fname"];
-      print("the name is $name");
     });
     pwdInputController = new TextEditingController();
     confirmPwdInputController = new TextEditingController();
@@ -71,8 +68,6 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              // TODO: fix name stuff/make it synchronous
-              new Text("Welcome, $name"),
               new Padding(padding: EdgeInsets.only(top: 10.0)),
               Form(
                 key: _updateNameKey,

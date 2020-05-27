@@ -25,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   int _radioValue;
   List<int> values = [9, 10, 11, 12];
 
-  /// instantiate controllers
+  /// instantiate controllers and radio
   @override
   initState() {
     firstNameInputController = new TextEditingController();
@@ -37,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
     super.initState();
   }
 
+  /// handles radio value when user changes it
   void _handleRadioValueChange(int value) {
     setState(() {
       _radioValue = value;
@@ -367,9 +368,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                           ))),
                   FlatButton(
-                      child: Text("I already have an account",
-                          style:
-                              new TextStyle(fontSize: 14, color: Colors.grey))),
+                    child: Text("I already have an account",
+                        style: new TextStyle(fontSize: 14, color: Colors.grey)),
+                    onPressed: () {
+                      Navigator.pop(context); // return home
+                    },
+                  ),
                 ],
               ),
             ))));
