@@ -1,9 +1,7 @@
 // adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
 
 import 'package:flutter/material.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
@@ -44,7 +42,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
     super.initState();
   }
 
-  // for the radio buttons in the form
+  /// handles radio buttons in form
   void _handleRadioValueChange(int value) {
     setState(() {
       _radioValue = value;
@@ -146,7 +144,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                   borderRadius: BorderRadius.circular(100)),
                               hasFloatingPlaceholder: false),
                           onChanged: (dt) => setState(() => date = dt),
-                          // todo: validation???
                         ),
                         new Padding(padding: EdgeInsets.all(1.0)),
                         DateTimePickerFormField(
@@ -174,7 +171,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                 borderRadius: BorderRadius.circular(100)),
                           ),
                           onChanged: (t) => setState(() => time = t),
-                          // todo: validation???
                         ),
                         new Padding(padding: EdgeInsets.all(1.0)),
                         TextFormField(
@@ -296,7 +292,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                 "class": classInputController.text,
                                 "recipient": _radioValue
                               });
-
                               // clears form fields on submit
                               // todo: make sure date and time are cleared
                               titleInputController.clear();
@@ -317,7 +312,8 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
             )));
   }
 
-  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
+  /// shows success message on submission of form
+  /// adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
   void _openNewPage() {
     Navigator.of(context).push(
       new MaterialPageRoute<void>(

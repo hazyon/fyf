@@ -26,8 +26,8 @@ class FriendRequestDescription extends StatelessWidget {
   final userFullName;
   final userUID;
 
+  /// deletes the pending request from the person that sent the friend request
   void deleteRequest() {
-    // deletes the pending request from the person that sent the friend request
     Firestore.instance
         .collection("users")
         .document(userUID)
@@ -42,8 +42,6 @@ class FriendRequestDescription extends StatelessWidget {
         .where("email", isEqualTo: userEmail)
         .getDocuments()
         .then((QuerySnapshot docs) {
-      //return "I have the documents";
-      //setState(() {
       if (docs.documents.isNotEmpty) {
         // emails are unique, so there should only be one
         DocumentSnapshot toDelete = docs.documents[0];
