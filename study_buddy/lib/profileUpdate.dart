@@ -15,20 +15,22 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _updateNameKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _updatePasswordKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _updateGradeKey = GlobalKey<FormState>();
 
   TextEditingController firstNameInputController;
   TextEditingController lastNameInputController;
-
-  final GlobalKey<FormState> _updatePasswordKey = GlobalKey<FormState>();
-
   TextEditingController pwdInputController;
   TextEditingController confirmPwdInputController;
 
   DocumentReference userProfileRef;
 
+  int _radioValue;
+  List<int> values = [9, 10, 11, 12];
+
   @override
   initState() {
-    print("Running initState");
+    print("running initState");
     userProfileRef =
         Firestore.instance.collection("users").document(widget.uid);
     // TODO: currently you have to hot reload to show the current value, change so that it automatically loads the current name or it is just blank
@@ -38,11 +40,16 @@ class _ProfilePageState extends State<ProfilePage> {
       lastNameInputController =
           new TextEditingController(text: result["surname"]);
     });
-    //firstNameInputController = new TextEditingController(text: "FirstName");
-    //lastNameInputController = new TextEditingController(text: "LastName");
     pwdInputController = new TextEditingController();
     confirmPwdInputController = new TextEditingController();
+    _radioValue = 0; // none of the buttons are selected at the beginning
     super.initState();
+  }
+
+  void _handleRadioValueChange(int value) {
+    setState(() {
+      _radioValue = value;
+    });
   }
 
   String pwdValidator(String value) {
@@ -55,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    print("Running build");
+    print("running build");
     return Container(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -140,18 +147,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       textColor: Colors.white,
                       onPressed: () {
                         if (_updateNameKey.currentState.validate()) {
-                          userProfileRef
-                              .updateData({
-                                "fname": firstNameInputController.text,
-                                "surname": lastNameInputController.text
-                              })
-                              .catchError((err) => print(
-                                  err)) // TODO: this line might be optional?
-                              .catchError((err) => print(err));
+                          userProfileRef.updateData({
+                            "fname": firstNameInputController.text,
+                            "surname": lastNameInputController.text
+                          }).catchError((err) => print(err));
                           firstNameInputController.clear();
                           lastNameInputController.clear();
                           pwdInputController.clear();
                           confirmPwdInputController.clear();
+                          _openNewPage(
+                              "Your name has been successfully updated!");
                         }
                       },
                     ),
@@ -240,6 +245,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       confirmPwdInputController.clear();
                                     }).catchError((err) => print(err)))
                                 .catchError((err) => print(err));
+                            _openNewPage(
+                                "Your password has been successfully updated!");
                           } else {
                             showDialog(
                                 context: context,
@@ -261,21 +268,137 @@ class _ProfilePageState extends State<ProfilePage> {
                         }
                       },
                     ),
-                    new Padding(padding: EdgeInsets.all(50)),
-                    RaisedButton(
-                      child: Text("Classes"),
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                          BorderRadius.all(Radius.circular(16.0))),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      onPressed: () {
-
-                      }
+                    new Padding(padding: EdgeInsets.all(10.0)),
+                    Form(
+                      key: _updateGradeKey,
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            "Grade",
+                            style: new TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Radio(
+                                value: 9,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '9',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                              Radio(
+                                value: 10,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '10',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                              Radio(
+                                value: 11,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '11',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                              Radio(
+                                value: 12,
+                                groupValue: _radioValue,
+                                onChanged: _handleRadioValueChange,
+                              ),
+                              Text(
+                                '12',
+                                style: new TextStyle(fontSize: 14.0),
+                              ),
+                            ],
+                          ),
+                          new Padding(padding: EdgeInsets.all(5.0)),
+                          RaisedButton(
+                            child: Text("Update Grade"),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16.0))),
+                            color: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                            onPressed: () {
+                              if (values.contains(_radioValue)) {
+                                userProfileRef.updateData({
+                                  "grade": _radioValue,
+                                }).catchError((err) => print(err));
+                                // clear controllers and radios
+                                firstNameInputController.clear();
+                                lastNameInputController.clear();
+                                pwdInputController.clear();
+                                confirmPwdInputController.clear();
+                                _radioValue = null;
+                                _openNewPage(
+                                    "Your grade has been successfully updated!");
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
+                    RaisedButton(
+                        child: Text("Classes"),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.0))),
+                        color: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                        onPressed: () {}),
                   ]))
             ],
           ),
         ));
+  }
+
+  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
+  void _openNewPage(String message) {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Success'),
+            ),
+            body: new Center(
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 19.0),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 19.0),
+                        ),
+                        Text(
+                          message,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: new TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

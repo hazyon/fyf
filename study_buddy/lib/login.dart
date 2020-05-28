@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import './control.dart';
 
 class LoginPage extends StatefulWidget {
@@ -43,9 +45,40 @@ class _LoginPageState extends State<LoginPage> {
     if (value.length == 0) {
       return 'Password can\'t be empty';
     } else {
-      /* TODO: when logging in, you have to consider the possible errors of having a username that doesn't exist and having the incorrect password*/
       return null;
     }
+  }
+
+  /// deals with user errors
+  /// https://stackoverflow.com/questions/56113778/how-to-handle-firebase-auth-exceptions-on-flutter
+  Future<String> signIn(String email, String password) async {
+    String errorMessage;
+
+    try {
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+    } catch (error) {
+      switch (error.code) {
+        case "ERROR_INVALID_EMAIL":
+          errorMessage = "Invalid Email";
+          break;
+        case "ERROR_WRONG_PASSWORD":
+          errorMessage = "Incorrect Password";
+          break;
+        case "ERROR_USER_NOT_FOUND":
+          errorMessage = "User with this email does not exist";
+          break;
+        case "ERROR_TOO_MANY_REQUESTS":
+          errorMessage = "Too many requests. Try again later.";
+          break;
+        default:
+          errorMessage = "Something went wrong.";
+      }
+    }
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+    return null;
   }
 
   /// login page
@@ -88,7 +121,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     controller: emailInputController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: emailValidator,
+                    validator: (value) {
+                      if (!EmailValidator.validate(value.trim())) {
+                        return "Email format is invalid";
+                      }
+                      return null;
+                    },
                   ),
                   new Padding(padding: EdgeInsets.only(top: 20)),
                   TextFormField(
@@ -128,7 +166,9 @@ class _LoginPageState extends State<LoginPage> {
                             if (_loginFormKey.currentState.validate()) {
                               FirebaseAuth.instance
                                   .signInWithEmailAndPassword(
-                                      email: emailInputController.text,
+                                      email: emailInputController.text
+                                          .toLowerCase()
+                                          .trim(),
                                       password: pwdInputController.text)
                                   .then((currentUser) => Firestore.instance
                                       .collection("users")
@@ -144,9 +184,33 @@ class _LoginPageState extends State<LoginPage> {
                                                             "'s Tasks",
                                                         uid: currentUser.uid,
                                                       ))))
-                                      .catchError((err) => print(err)))
-                                  .catchError((err) => print(err));
+                                      .catchError((err) => print(err)));
                             }
+                            /*
+                            if (_loginFormKey.currentState.validate()) {
+                              FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                  email: emailInputController.text
+                                      .toLowerCase()
+                                      .trim(),
+                                  password: pwdInputController.text)
+                                  .then((currentUser) => Firestore.instance
+                                      .collection("users")
+                                      .document(currentUser.uid)
+                                      .get()
+                                      .then((DocumentSnapshot result) =>
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ControlPage(
+                                                        title: result["fname"] +
+                                                            "'s Tasks",
+                                                        uid: currentUser.uid,
+                                                      ))))
+                                      .catchError((err) => print(err)));
+                            }
+                           */
                           },
                         ),
                       )),

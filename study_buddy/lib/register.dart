@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 
-import './control.dart';
 import './selectFrees.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   int _radioValue;
   List<int> values = [9, 10, 11, 12];
 
-  /// instantiate controllers
+  /// instantiate controllers and radio
   @override
   initState() {
     firstNameInputController = new TextEditingController();
@@ -37,18 +37,19 @@ class _RegisterPageState extends State<RegisterPage> {
     super.initState();
   }
 
-  /// validates email address
+  /// handles radio value when user changes it
   void _handleRadioValueChange(int value) {
     setState(() {
       _radioValue = value;
     });
   }
 
+  /// validates email address
   String emailValidator(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value)) {
+    if (!regex.hasMatch(value.trim())) {
       return 'Email format is invalid';
     } else {
       return null;
@@ -160,7 +161,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     controller: emailInputController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: emailValidator,
+                    validator: (value) {
+                      if (!EmailValidator.validate(value.trim())) {
+                        return "Email format is invalid";
+                      }
+                      return null;
+                    },
                   ),
                   new Padding(padding: EdgeInsets.only(top: 7.5)),
                   TextFormField(
@@ -294,8 +300,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   firstNameInputController.text,
                                               "surname":
                                                   lastNameInputController.text,
-                                              "email":
-                                                  emailInputController.text,
+                                              "email": emailInputController.text
+                                                  .toLowerCase()
+                                                  .trim(),
                                               "grade": _radioValue,
                                             })
                                             .then((result) => {
@@ -315,7 +322,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   emailInputController.clear(),
                                                   pwdInputController.clear(),
                                                   confirmPwdInputController
-                                                      .clear()
+                                                      .clear(),
                                                 })
                                             .catchError((err) => print(err)))
                                         .catchError((err) => print(err));
@@ -361,9 +368,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                           ))),
                   FlatButton(
-                      child: Text("I already have an account",
-                          style:
-                              new TextStyle(fontSize: 14, color: Colors.grey))),
+                    child: Text("I already have an account",
+                        style: new TextStyle(fontSize: 14, color: Colors.grey)),
+                    onPressed: () {
+                      Navigator.pop(context); // return home
+                    },
+                  ),
                 ],
               ),
             ))));

@@ -22,6 +22,7 @@ class ControlPageState extends State<ControlPage> {
 
   // the array of pages
   List _pageOptions;
+  int _selectedPage;
 
   @override
   void initState() {
@@ -42,10 +43,9 @@ class ControlPageState extends State<ControlPage> {
       Friends(uid: widget.uid, date: date),
       ProfilePage(uid: widget.uid),
     ];
+    _selectedPage = 0;
     super.initState();
   }
-
-  int _selectedPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +68,11 @@ class ControlPageState extends State<ControlPage> {
       body: _pageOptions[_selectedPage], // displays correct page
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType
-            .fixed, // so that the navbar doesn't move around and shows up in the correct colors
+            .fixed, // so nav bar doesn't move around and shows up in the correct colors
         currentIndex: _selectedPage,
         onTap: (int index) {
           setState(() {
-            _selectedPage =
-                index; // this is what actually keeps track of which page the user is on
+            _selectedPage = index; // keeps track of which page the user is on
           });
         },
         items: [

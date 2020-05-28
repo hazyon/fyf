@@ -8,14 +8,6 @@ import './login.dart';
 
 void main() => runApp(MyApp());
 
-/*void main() {
-  SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp]) // app is only vertical
-      .then((_) {
-    runApp(new MyApp());
-  }).catchError((err) => print(err));
-}*/
-
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new MyAppState();
@@ -25,10 +17,10 @@ class MyAppState extends State {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           hintColor: Colors.grey,
           primaryColor: Colors.blue,
-          //canvasColor: Color(0xffF5F5F5),
           canvasColor: Colors.white,
           fontFamily: "Montserrat",
         ),

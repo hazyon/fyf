@@ -1,9 +1,7 @@
 // adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
 
 import 'package:flutter/material.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
@@ -27,11 +25,11 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
   DateTime date;
   DateTime time;
 
-  int _radioValue = 0;
+  int _radioValue;
 
   @override
   initState() {
-    print("Running initState"); // for debug
+    print("Running initState"); // debug
 
     // instantiate controllers
     titleInputController = new TextEditingController();
@@ -39,23 +37,27 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
     locationInputController = new TextEditingController();
     classInputController = new TextEditingController();
 
+    _radioValue = 0; // none of the buttons are selected at the beginning
+
     super.initState();
+  }
+
+  /// handles radio buttons in form
+  void _handleRadioValueChange(int value) {
+    setState(() {
+      _radioValue = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     print("Running build"); // debug
 
-    // for the radio buttons in the form
-    void _handleRadioValueChange(int value) {
-      setState(() {
-        _radioValue = value;
-      });
-    }
-
     // the form itself
     return Scaffold(
-      appBar: AppBar(title: new Text("Create Meeting"),),
+        appBar: AppBar(
+          title: new Text("Create Meeting"),
+        ),
         body: Container(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
@@ -68,11 +70,22 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                       children: <Widget>[
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Title',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            hintText: 'Title',
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: titleInputController,
                           validator: (value) {
@@ -82,13 +95,25 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                             return null;
                           },
                         ),
+                        new Padding(padding: EdgeInsets.all(1.0)),
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Description',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            hintText: 'Description',
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: descriptionInputController,
                         ),
@@ -102,14 +127,25 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                           editable: false,
                           decoration: InputDecoration(
                               labelText: 'Date',
-                              border: OutlineInputBorder(
-                                borderRadius: new BorderRadius.circular(17.0),
-                                borderSide: new BorderSide(),
+                              contentPadding: EdgeInsets.only(left: 20),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0)),
+                                borderSide:
+                                    const BorderSide(color: Color(0xffD3D3D3)),
                               ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0)),
+                                borderSide:
+                                    const BorderSide(color: Color(0xffD3D3D3)),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100)),
                               hasFloatingPlaceholder: false),
                           onChanged: (dt) => setState(() => date = dt),
-                          // todo: validation???
                         ),
+                        new Padding(padding: EdgeInsets.all(1.0)),
                         DateTimePickerFormField(
                           inputType: InputType.time,
                           initialTime: TimeOfDay.now(),
@@ -118,21 +154,43 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                           decoration: InputDecoration(
                             labelText: 'Time',
                             hasFloatingPlaceholder: false,
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           onChanged: (t) => setState(() => time = t),
-                          // todo: validation???
                         ),
+                        new Padding(padding: EdgeInsets.all(1.0)),
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Location',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            contentPadding: EdgeInsets.only(left: 20),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: locationInputController,
                           validator: (value) {
@@ -145,11 +203,22 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                         new Padding(padding: EdgeInsets.all(10.0)),
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Select Class',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(17.0),
-                              borderSide: new BorderSide(),
+                            contentPadding: EdgeInsets.only(left: 20),
+                            hintText: 'Select Class',
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xffD3D3D3)),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
                           ),
                           controller: classInputController,
                           validator: (value) {
@@ -223,13 +292,13 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                 "class": classInputController.text,
                                 "recipient": _radioValue
                               });
-
                               // clears form fields on submit
-                              // todo: make sure date and time are cleared; figure out more efficient way to do this
+                              // todo: make sure date and time are cleared
                               titleInputController.clear();
                               descriptionInputController.clear();
                               locationInputController.clear();
                               classInputController.clear();
+                              _radioValue = null;
 
                               _openNewPage(); // success page on submission
                             }
@@ -243,7 +312,8 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
             )));
   }
 
-  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
+  /// shows success message on submission of form
+  /// adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
   void _openNewPage() {
     Navigator.of(context).push(
       new MaterialPageRoute<void>(

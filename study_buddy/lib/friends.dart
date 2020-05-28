@@ -15,17 +15,7 @@ import './customCard.dart';
 class Friends extends StatefulWidget {
   Friends({Key key, this.uid, this.date}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String uid;
-
   final String date;
 
   @override
@@ -59,7 +49,7 @@ class _FriendsState extends State<Friends> {
     taskTitleInputController = new TextEditingController();
     //emailsStream = StreamController<List<String>>();
     //emailsStream.add(tmpEmailsArray);
-   /* taskTitleInputController.addListener(() {
+    /* taskTitleInputController.addListener(() {
       filter = taskTitleInputController.text;
       tmpEmailsArray.clear();
       if (filter == null || filter == "") {
@@ -97,12 +87,11 @@ class _FriendsState extends State<Friends> {
       _senderEmail = result["email"];
     }).catchError((err) => print(err));
     //taskDescripInputController = new TextEditingController();
-    Firestore.instance
-        .collection("users")
-        .getDocuments().then((docs) {
-          docs.documents.forEach((doc) {
-            emails.add(doc["email"] + " (" + doc["fname"] + " " + doc["surname"] + ")");
-          });
+    Firestore.instance.collection("users").getDocuments().then((docs) {
+      docs.documents.forEach((doc) {
+        emails.add(
+            doc["email"] + " (" + doc["fname"] + " " + doc["surname"] + ")");
+      });
     });
     super.initState();
   }
@@ -174,9 +163,12 @@ class _FriendsState extends State<Friends> {
                     Container(
                       width: double.maxFinite,
                       child: SizedBox(
-                        height: 200.0,
-                        child: new MyDialogContent(emails: emails, textController: taskTitleInputController,)
-                        /*StreamBuilder(
+                          height: 200.0,
+                          child: new MyDialogContent(
+                            emails: emails,
+                            textController: taskTitleInputController,
+                          )
+                          /*StreamBuilder(
                           stream: emailsStream.stream,
                           builder: (context, snapshot) {
                             return tmpEmailsArray.isEmpty ? new Container() : new Container(child: ListView.builder(
@@ -187,7 +179,7 @@ class _FriendsState extends State<Friends> {
                             ));
                           },
                         )*/
-                        /*ListView.builder(
+                          /*ListView.builder(
                           itemCount: emails.length,
                           itemBuilder: (BuildContext context, int index) {
                             return filter == null || filter == ""
@@ -197,7 +189,7 @@ class _FriendsState extends State<Friends> {
                                     : new Container();
                           },
                         ),*/
-                      ),
+                          ),
                     )
                   ],
                 )),
@@ -340,26 +332,26 @@ class _FriendsState extends State<Friends> {
 }
 
 class MyDialogContent extends StatefulWidget {
-  MyDialogContent({Key key, this.emails, this.textController}) : super(key: key);
+  MyDialogContent({Key key, this.emails, this.textController})
+      : super(key: key);
 
   List<String> emails;
   TextEditingController textController;
-
 
   @override
   _MyDialogContentState createState() => new _MyDialogContentState();
 }
 
 class _MyDialogContentState extends State<MyDialogContent> {
-
   String filter;
 
   @override
   void initState() {
     //widget.textController = new TextEditingController();
-    widget.textController.addListener( () {
-      if (!mounted)
-        {return;}
+    widget.textController.addListener(() {
+      if (!mounted) {
+        return;
+      }
       setState(() {
         filter = widget.textController.text;
       });
@@ -382,8 +374,8 @@ class _MyDialogContentState extends State<MyDialogContent> {
         return (filter == null || filter == "")
             ? new Card(child: new Text(widget.emails[index]))
             : widget.emails[index].toLowerCase().contains(filter.toLowerCase())
-            ? new Card(child: new Text(widget.emails[index]))
-            : new Container();
+                ? new Card(child: new Text(widget.emails[index]))
+                : new Container();
       },
     );
   }
