@@ -40,6 +40,7 @@ class _FriendsState extends State<Friends> {
 
   //String _senderFName;
   //String _senderSurname;
+  bool _haveData = false;
   String _senderFullName;
   String _senderEmail;
 
@@ -76,7 +77,12 @@ class _FriendsState extends State<Friends> {
     });*/
     //currentEmailUID = "UIDplaceholder";
 
-    Firestore.instance
+    getUserInfo();
+    super.initState();
+  }
+
+  void getUserInfo() {
+    /*await Firestore.instance
         .collection("users")
         .document(widget.uid)
         .get()
@@ -85,15 +91,23 @@ class _FriendsState extends State<Friends> {
       _senderFullName = result["fname"] + " " + result["surname"];
       //_senderSurname = result["surname"];
       _senderEmail = result["email"];
-    }).catchError((err) => print(err));
+    }).catchError((err) => print(err));*/
     //taskDescripInputController = new TextEditingController();
+
     Firestore.instance.collection("users").getDocuments().then((docs) {
-      docs.documents.forEach((doc) {
-        emails.add(
-            doc["email"] + " (" + doc["fname"] + " " + doc["surname"] + ")");
+      setState(() {
+        docs.documents.forEach((doc) {
+          emails.add(
+              doc["email"] + " (" + doc["fname"] + " " + doc["surname"] + ")");
+          if (doc["uid"] == widget.uid) {
+            _senderFullName = doc["fname"] + " " + doc["surname"];
+            //_senderSurname = result["surname"];
+            _senderEmail = doc["email"];
+            _haveData = true;
+          }
+        });
       });
     });
-    super.initState();
   }
 
   // TODO: I don't know if the following is necessary
@@ -286,48 +300,63 @@ class _FriendsState extends State<Friends> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Expanded(
-        child: SizedBox(
-            child: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance
-              .collection("users")
-              .document(widget.uid)
-              .collection('friends')
-              .orderBy("status")
-              .snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return new Text('Loading...');
-              default:
-                return new ListView(
-                  children:
-                      snapshot.data.documents.map((DocumentSnapshot document) {
-                    return new CustomCard(
-                      name: document['fullName'],
-                      email: document['email'],
-                      date: document['date'],
-                      status: document['status'],
-                      uid: document["uid"],
-                      docId: document.documentID,
-                      userEmail: _senderEmail,
-                      userFullName: _senderFullName,
-                      userUID: widget.uid,
-                    );
-                  }).toList(),
-                );
-            }
-          },
-        )),
-      ),
-      RaisedButton(
-        onPressed: _showDialog,
-        child: Icon(Icons.add),
-      )
-    ]);
+    if (_haveData) {
+      return Column(children: <Widget>[
+        Expanded(
+          child: SizedBox(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection("users")
+                    .document(widget.uid)
+                    .collection('friends')
+                    .orderBy("status")
+                    .snapshots(),
+                builder:
+                    (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError)
+                    return new Text('Error: ${snapshot.error}');
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return new Text('Loading...');
+                    default:
+                      return new ListView(
+                        children:
+                        snapshot.data.documents.map((
+                            DocumentSnapshot document) {
+                          return new CustomCard(
+                            name: document['fullName'],
+                            email: document['email'],
+                            date: document['date'],
+                            status: document['status'],
+                            uid: document["uid"],
+                            docId: document.documentID,
+                            userEmail: _senderEmail,
+                            userFullName: _senderFullName,
+                            userUID: widget.uid,
+                          );
+                        }).toList(),
+                      );
+                  }
+                },
+              )),
+        ),
+        RaisedButton(
+          onPressed: _showDialog,
+          child: Icon(Icons.add),
+        )
+      ]);
+   }
+    else
+      {
+        /*return ModalProgressHUD(
+          opacity: 0.5,
+          progressIndicator: CircularProgressIndicator(),
+        );*/
+        return Center(
+          child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation(Colors.blue),),
+        );
+      }
   }
 }
 
