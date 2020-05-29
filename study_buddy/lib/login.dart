@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
@@ -35,6 +34,9 @@ class _LoginPageState extends State<LoginPage> {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
+    value = value
+        .toLowerCase()
+        .trim(); // accounts for capitalization and whitespace
     if (value.length == 0) {
       return 'Email can\'t be empty';
     } else if (!regex.hasMatch(value)) {
@@ -126,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
               key: _loginFormKey,
               child: Column(
                 children: <Widget>[
-                  new Padding(padding: EdgeInsets.only(top: 10)),
+                  new Padding(padding: EdgeInsets.only(top: 20)),
                   SizedBox(
                     width: 85, // hard coding child width
                     child: Image.asset("assets/pencil.png"),
@@ -151,14 +153,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     controller: emailInputController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (!EmailValidator.validate(value.trim())) {
-                        return "Email format is invalid";
-                      }
-                      return null;
-                    },
+                    validator: emailValidator,
                   ),
-                  new Padding(padding: EdgeInsets.only(top: 10)),
+                  new Padding(padding: EdgeInsets.only(top: 20)),
                   TextFormField(
                     decoration: new InputDecoration(
                       hintText: 'Password',
@@ -181,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                     validator: pwdValidator,
                   ),
                   new Padding(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 20),
                       child: SizedBox(
                         width: 800,
                         height: 55,
@@ -231,7 +228,6 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                   FlatButton(
-                    padding: EdgeInsets.only(top: 10),
                     child: Text("Create an account",
                         style: new TextStyle(fontSize: 16, color: Colors.grey)),
                     onPressed: () {
