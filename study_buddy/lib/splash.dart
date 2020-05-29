@@ -31,10 +31,10 @@ class _SplashPageState extends State<SplashPage> {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ControlPage(
-                        title: result["fname"] + "'s Tasks",
-                        uid: currentUser.uid,
-                      ))))
+        builder: (context) => ControlPage(
+          title: "Study Buddy",
+          uid: currentUser.uid,
+        ))))
               .catchError((err) => print(err))
         }
     })

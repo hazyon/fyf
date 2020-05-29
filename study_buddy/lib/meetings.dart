@@ -32,7 +32,7 @@ class _MeetingsState extends State<Meetings> {
 
   Future navigateToSubPage(context) async {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CreateMeetingPage()));
+        context, MaterialPageRoute(builder: (context) => CreateMeetingPage(uid: widget.uid)));
   }
 
   @override
@@ -42,7 +42,7 @@ class _MeetingsState extends State<Meetings> {
         child: SizedBox(
             child: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance
-              .collection('meetings')
+              .collection('users').document(widget.uid).collection("incomingMeetings")
               .orderBy("date")
               .snapshots(),
           builder:
@@ -62,7 +62,7 @@ class _MeetingsState extends State<Meetings> {
                       location: document['location'],
                       time: document['time'],
                       title: document["title"],
-                      uid: document.documentID,
+                      uid: document["meetingUID"],
                       userUID: widget.uid,
                     );
                   }).toList(),

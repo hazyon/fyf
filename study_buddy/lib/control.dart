@@ -34,7 +34,7 @@ class ControlPageState extends State<ControlPage> {
         now.day.toString();
     _pageOptions = [
       // the array of pages
-      HomePage(),
+      HomeJoined(uid: widget.uid),
       Text(
         "Messages",
         style: TextStyle(fontSize: 36),

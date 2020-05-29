@@ -65,6 +65,12 @@ class MeetingCustomCard extends StatelessWidget {
                                                   .collection('meetings')
                                                   .add({
                                                 "meetingUID": uid,
+                                                "class": course,
+                                                "date": date,
+                                                "description": description,
+                                                "location": location,
+                                                "time": time,
+                                                "title": title
                                               }).catchError((err) => print(err));
 
                                               Navigator.pop(context);

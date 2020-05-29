@@ -1,4 +1,5 @@
-// adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
+// adapted from the following tutorial https://www.youtube.com/watch?v=w0rfZm6a3Hs
+
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
