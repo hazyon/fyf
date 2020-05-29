@@ -22,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailInputController;
   TextEditingController pwdInputController;
 
-
   /// instantiates controllers
   @override
   initState() {
@@ -36,7 +35,9 @@ class _LoginPageState extends State<LoginPage> {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value)) {
+    if (value.length == 0) {
+      return 'Email can\'t be empty';
+    } else if (!regex.hasMatch(value)) {
       return 'Email format is invalid';
     } else {
       return null;
@@ -125,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
               key: _loginFormKey,
               child: Column(
                 children: <Widget>[
-                  new Padding(padding: EdgeInsets.only(top: 30)),
+                  new Padding(padding: EdgeInsets.only(top: 10)),
                   SizedBox(
                     width: 85, // hard coding child width
                     child: Image.asset("assets/pencil.png"),
@@ -157,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                   ),
-                  new Padding(padding: EdgeInsets.only(top: 20)),
+                  new Padding(padding: EdgeInsets.only(top: 10)),
                   TextFormField(
                     decoration: new InputDecoration(
                       hintText: 'Password',
@@ -180,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                     validator: pwdValidator,
                   ),
                   new Padding(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 10),
                       child: SizedBox(
                         width: 800,
                         height: 55,
@@ -192,6 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(100.0)),
                           onPressed: () {
+                            // once validation is passed successfully, database authentication begins
                             if (_loginFormKey.currentState.validate()) {
                               signIn(
                                       emailInputController.text
@@ -203,6 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                                       .document(currentUser.uid)
                                       .get()
                                       .then((DocumentSnapshot result) =>
+                                          // user is redirected to home page upon login
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
@@ -213,44 +216,22 @@ class _LoginPageState extends State<LoginPage> {
                                                       ))))
                                       .catchError((err) => print(err)));
                             }
-                            /*
-                            if (_loginFormKey.currentState.validate()) {
-                              FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                  email: emailInputController.text
-                                      .toLowerCase()
-                                      .trim(),
-                                  password: pwdInputController.text)
-                                  .then((currentUser) => Firestore.instance
-                                      .collection("users")
-                                      .document(currentUser.uid)
-                                      .get()
-                                      .then((DocumentSnapshot result) =>
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ControlPage(
-                                                        title: result["fname"] +
-                                                            "'s Tasks",
-                                                        uid: currentUser.uid,
-                                                      ))))
-                                      .catchError((err) => print(err)));
-                            }
-                           */
                           },
                         ),
                       )),
                   FlatButton(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 10),
                     child: Text("Forgot Password?",
                         style: new TextStyle(fontSize: 16, color: Colors.grey)),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPasswordPage()));
                     },
                   ),
                   FlatButton(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 10),
                     child: Text("Create an account",
                         style: new TextStyle(fontSize: 16, color: Colors.grey)),
                     onPressed: () {
