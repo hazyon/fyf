@@ -103,9 +103,10 @@ class _FriendsState extends State<Friends> {
             _senderFullName = doc["fname"] + " " + doc["surname"];
             //_senderSurname = result["surname"];
             _senderEmail = doc["email"];
-            _haveData = true;
+
           }
         });
+        _haveData = true;
       });
     });
   }

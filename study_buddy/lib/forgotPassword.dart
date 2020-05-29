@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import './control.dart';
+import './login.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   ForgotPasswordPage({Key key}) : super(key: key);
@@ -21,6 +21,38 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void sendPasswordResetEmail(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
+  showAlertDialog(BuildContext context, String sentEmail)
+  {
+    //button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        // TODO: put the redirect to login page here
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    LoginPage()),
+                (_) => false);
+      },
+    );
+
+    // set up Alert Dialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Reset Password Email Sent"),
+      content: Text("An reset password email has been sent to " + sentEmail + ".\nIf you do not receive an email, then there is no existing account with this email."),
+      actions: <Widget>[okButton],
+    );
+
+    //show the Dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      }
+    );
   }
 
   /// instantiates controllers
@@ -95,7 +127,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               sendPasswordResetEmail(emailInputController.text
                                   .toLowerCase()
                                   .trim());
-                              Navigator.pushNamed(context, "/login");
+                              showAlertDialog(context, emailInputController.text.toLowerCase().trim());
+
                             }
                             /*
                             if (_loginFormKey.currentState.validate()) {

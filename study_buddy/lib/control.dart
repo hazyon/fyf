@@ -50,7 +50,7 @@ class ControlPageState extends State<ControlPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Study Buddy"),
+      appBar: AppBar(title: Text(widget.title),
           // log out feature adapted from the following tutorial https://heartbeat.fritz.ai/firebase-user-authentication-in-flutter-1635fb175675
           actions: <Widget>[
             FlatButton(

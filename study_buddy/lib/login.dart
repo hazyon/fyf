@@ -208,8 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       ControlPage(
-                                                        title: "Welcome, " +
-                                                            result["fname"],
+                                                        title: "Study Buddy",
                                                         uid: currentUser.uid,
                                                       ))))
                                       .catchError((err) => print(err)));
