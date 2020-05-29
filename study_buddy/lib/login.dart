@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 
 import './control.dart';
 
@@ -51,11 +52,11 @@ class _LoginPageState extends State<LoginPage> {
 
   /// deals with user errors
   /// https://stackoverflow.com/questions/56113778/how-to-handle-firebase-auth-exceptions-on-flutter
-  Future<String> signIn(String email, String password) async {
+  Future<FirebaseUser> signIn(String email, String password) async {
+    FirebaseUser user;
     String errorMessage;
-
     try {
-      FirebaseAuth.instance
+      user = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } catch (error) {
       switch (error.code) {
@@ -75,10 +76,36 @@ class _LoginPageState extends State<LoginPage> {
           errorMessage = "Something went wrong.";
       }
     }
+
     if (errorMessage != null) {
+      Widget okButton = FlatButton(
+        child: Text("OK"),
+        onPressed: () {
+          Navigator.of(context).pop(); // dismiss dialog
+        },
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Error"),
+        content: Text(errorMessage),
+        actions: [
+          okButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+
       return Future.error(errorMessage);
     }
-    return null;
+
+    return user;
   }
 
   /// login page
@@ -164,12 +191,11 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: new BorderRadius.circular(100.0)),
                           onPressed: () {
                             if (_loginFormKey.currentState.validate()) {
-                              FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                      email: emailInputController.text
+                              signIn(
+                                      emailInputController.text
                                           .toLowerCase()
                                           .trim(),
-                                      password: pwdInputController.text)
+                                      pwdInputController.text)
                                   .then((currentUser) => Firestore.instance
                                       .collection("users")
                                       .document(currentUser.uid)
@@ -180,8 +206,8 @@ class _LoginPageState extends State<LoginPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       ControlPage(
-                                                        title: result["fname"] +
-                                                            "'s Tasks",
+                                                        title: "Welcome, " +
+                                                            result["fname"],
                                                         uid: currentUser.uid,
                                                       ))))
                                       .catchError((err) => print(err)));
