@@ -6,6 +6,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import './control.dart';
+import './forgotPassword.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -19,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
 
   TextEditingController emailInputController;
   TextEditingController pwdInputController;
+
 
   /// instantiates controllers
   @override
@@ -214,6 +216,14 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                       )),
+                  FlatButton(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Text("Forgot Password?",
+                        style: new TextStyle(fontSize: 16, color: Colors.grey)),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                    },
+                  ),
                   FlatButton(
                     padding: EdgeInsets.only(top: 20),
                     child: Text("Create an account",
