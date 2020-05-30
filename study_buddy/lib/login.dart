@@ -106,10 +106,8 @@ class _LoginPageState extends State<LoginPage> {
           return alert;
         },
       );
-
       return Future.error(errorMessage);
     }
-
     return user;
   }
 
