@@ -53,6 +53,7 @@ class _HomeJoinedState extends State<HomeJoined> {
                       title: document["title"],
                       uid: document["meetingUID"],
                       userUID: widget.uid,
+                      canJoin: false,
                     );
                   }).toList(),
                 );

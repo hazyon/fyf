@@ -40,6 +40,8 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
   String _meetingLocation;
   String _meetingClass;
 
+  bool _success = false;
+
   @override
   initState() {
     print("Running initState"); // debug
@@ -379,7 +381,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                   classInputController.clear();
                                   _radioValue = 0;
 
-                                  _openNewPage(); // success page on submission
+
                                 });
 
                                 // clears form fields on submit
@@ -412,7 +414,8 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         print("has the key");
         Firestore.instance
             .collection("dataArray")
-            .document(idToClassMap[classInputController.text.toLowerCase().trim()])
+            .document(
+            idToClassMap[classInputController.text.toLowerCase().trim()])
             .collection("students")
             .getDocuments()
             .then((docs) {
@@ -434,9 +437,26 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
             }
           });
         });
+        _success = true;
       } else {
-        // todo: print error that you haven't selected a valid class
-        print("doesn't have the key");
+        // print error that you haven't selected a valid class only if you want to send to classmates
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Error"),
+                content: Text(
+                    "This is not a valid class"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            });
       }
     } else if (radioNum == 1) {
       // todo: send out to all friends (meeting was sent to your # friends)
@@ -462,24 +482,29 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
           }).catchError((err) => print(err));
         });
       });
+      _success = true;
     } else {
       // TODO: open check list to pick recipients
       print("still null");
     }
     // send to yourself
-    Firestore.instance
-        .collection("users")
-        .document(widget.uid)
-        .collection('meetings')
-        .add({
-      "meetingUID": _meetingID,
-      'title': _meetingTitle,
-      'description': _meetingDescrip,
-      "date": date,
-      "time": time,
-      "location": _meetingLocation,
-      "class": _meetingClass,
-    }).catchError((err) => print(err));
+    if (_success) {
+      Firestore.instance
+          .collection("users")
+          .document(widget.uid)
+          .collection('meetings')
+          .add({
+        "meetingUID": _meetingID,
+        'title': _meetingTitle,
+        'description': _meetingDescrip,
+        "date": date,
+        "time": time,
+        "location": _meetingLocation,
+        "class": _meetingClass,
+      }).then((_) {
+        _openNewPage(); // success page on submission
+      }).catchError((err) => print(err));
+    }
   }
 
   /// shows success message on submission of form

@@ -47,6 +47,7 @@ class _HomeAllState extends State<HomeAll> {
                             title: document["title"],
                             uid: document.documentID,
                             userUID: widget.uid,
+                            canJoin: false,
                           );
                         }).toList(),
                       );

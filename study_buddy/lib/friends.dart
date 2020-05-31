@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:email_validator/email_validator.dart';
 
 import './customCard.dart';
 
@@ -119,11 +120,17 @@ class _FriendsState extends State<Friends> {
   }
 
   String emailValidator(String value) {
-    Pattern pattern =
+    /*Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value)) {
       return 'Email format is invalid';
+    }*/
+    if (!EmailValidator.validate(value.trim())) {
+      return "Email format is invalid";
+    }
+    if (value.toLowerCase().trim() == _senderEmail) {
+      return "Can't send friend request to yourself";
     }
     if (_isInvalidAsyncEmail) {
       _isInvalidAsyncEmail = false;
@@ -173,12 +180,12 @@ class _FriendsState extends State<Friends> {
                       controller: taskTitleInputController,
                       keyboardType: TextInputType.emailAddress,
                       validator: emailValidator,
-                      onSaved: (value) => _emailOfRecipient = value,
+                      onSaved: (value) => _emailOfRecipient = value.toLowerCase().trim(),
                     ),
                     Container(
                       width: double.maxFinite,
                       child: SizedBox(
-                          height: 200.0,
+                          height: 150.0,
                           child: new MyDialogContent(
                             emails: emails,
                             textController: taskTitleInputController,

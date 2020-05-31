@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
+import 'package:email_validator/email_validator.dart';
 
 import './control.dart';
 import './forgotPassword.dart';
@@ -39,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         .trim(); // accounts for capitalization and whitespace
     if (value.length == 0) {
       return 'Email can\'t be empty';
-    } else if (!regex.hasMatch(value)) {
+    } else if (!EmailValidator.validate(value)) {
       return 'Email format is invalid';
     } else {
       return null;
@@ -193,10 +194,10 @@ class _LoginPageState extends State<LoginPage> {
                             // once validation is passed successfully, database authentication begins
                             if (_loginFormKey.currentState.validate()) {
                               signIn(
-                                      emailInputController.text
-                                          .toLowerCase()
-                                          .trim(),
-                                      pwdInputController.text)
+                                  emailInputController.text
+                                      .toLowerCase()
+                                      .trim(),
+                                  pwdInputController.text)
                                   .then((currentUser) => Firestore.instance
                                       .collection("users")
                                       .document(currentUser.uid)

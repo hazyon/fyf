@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MeetingCustomCard extends StatelessWidget {
-  MeetingCustomCard({@required this.course, this.date, this.description, this.location, this.time, this.title, this.uid, this.userUID});
+  MeetingCustomCard({@required this.course, this.date, this.description, this.location, this.time, this.title, this.uid, this.userUID, this.canJoin});
 
   // information on the card about the meeting
   final course;
@@ -15,6 +15,7 @@ class MeetingCustomCard extends StatelessWidget {
   final title;
   final uid;
   final userUID;
+  final canJoin;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,8 @@ class MeetingCustomCard extends StatelessWidget {
                 FlatButton(
                     child: Text("See More"),
                     onPressed: () {
+                      if (canJoin)
+                        {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -46,7 +49,7 @@ class MeetingCustomCard extends StatelessWidget {
                                           Text("Location: " + location),
                                           Text("Description: " + description),
                                           RaisedButton(
-                                            
+
                                             child: Text("Join"),
                                             color: Theme.of(context).primaryColor,
                                             textColor: Colors.white,
@@ -76,14 +79,34 @@ class MeetingCustomCard extends StatelessWidget {
                                               Navigator.pop(context);
                                             },
                                           ),
-                                          RaisedButton(
-                                              child: Text('Back To HomeScreen'),
-                                              color: Theme.of(context).primaryColor,
-                                              textColor: Colors.white,
-                                              onPressed: () => Navigator.pop(context)),
                                         ]),
                                   )),
                           ));
+                      }
+                      else
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Scaffold(
+                                    appBar: AppBar(
+                                      title: Text(title),
+                                    ),
+                                    body: Center(
+                                      child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text("Class: " + course),
+                                            //TODO fix date and time not printing, error message: "type 'Timestamp' is not a subtype of type 'String'"
+                                            //Text("Date: " + date),
+                                            //Text("Time: " + time),
+                                            Text("Location: " + location),
+                                            Text("Description: " + description),
+                                          ]),
+                                    )),
+                              ));
+                        }
                     }),
               ],
             )));
