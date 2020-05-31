@@ -155,8 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           lastNameInputController.clear();
                           pwdInputController.clear();
                           confirmPwdInputController.clear();
-                          _openNewPage(
-                              "Your name has been successfully updated!");
+                          _success("Your name has been successfully updated!");
                         }
                       },
                     ),
@@ -245,7 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       confirmPwdInputController.clear();
                                     }).catchError((err) => print(err)))
                                 .catchError((err) => print(err));
-                            _openNewPage(
+                            _success(
                                 "Your password has been successfully updated!");
                           } else {
                             showDialog(
@@ -334,14 +333,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                 userProfileRef.updateData({
                                   "grade": _radioValue,
                                 }).catchError((err) => print(err));
+
                                 // clear controllers and radios
                                 firstNameInputController.clear();
                                 lastNameInputController.clear();
                                 pwdInputController.clear();
                                 confirmPwdInputController.clear();
-                                _radioValue = null;
-                                _openNewPage(
-                                    "Your grade has been successfully updated!");
+                                _radioValue = 0;
+                                _success(
+                                    "Your Grade has successfully been updated.");
                               }
                             },
                           ),
@@ -362,43 +362,30 @@ class _ProfilePageState extends State<ProfilePage> {
         ));
   }
 
-  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
-  void _openNewPage(String message) {
-    Navigator.of(context).push(
-      new MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Success'),
-            ),
-            body: new Center(
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 19.0),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 19.0),
-                        ),
-                        Text(
-                          message,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: new TextStyle(fontWeight: FontWeight.w300),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+  /// shows success message on submission of form
+  void _success(String message) {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Success"),
+      content: Text(message),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

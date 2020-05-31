@@ -101,6 +101,8 @@ class FriendRequestDescription extends StatelessWidget {
                   ),
                   RaisedButton(
                     child: Text("Decline"),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     onPressed: () {
@@ -110,6 +112,9 @@ class FriendRequestDescription extends StatelessWidget {
                   ),
                   RaisedButton(
                       child: Text('Back To Home'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(16.0))),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () => Navigator.pop(context)),
@@ -129,8 +134,12 @@ class FriendRequestDescription extends StatelessWidget {
                   Text(email),
                   Text("Date sent: " + date),
                   Text("Status: " + status),
+                  new Padding(padding: EdgeInsets.only(top: 10.0)),
                   RaisedButton(
-                      child: Text('Back to Home'),
+                      child: Text('Back'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(16.0))),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () => Navigator.pop(context)),
