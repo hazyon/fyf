@@ -128,8 +128,6 @@ class MeetingCustomCard extends StatelessWidget {
                                           children: <Widget>[
                                             Text("Class: " + course),
                                             //TODO fix date and time not printing, error message: "type 'Timestamp' is not a subtype of type 'String'"
-                                            //Text("Date: " + date),
-                                            //Text("Time: " + time),
                                             Text("Location: " + location),
                                             Text("Description: " + description),
                                           ]),

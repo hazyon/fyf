@@ -27,8 +27,6 @@ class MyAppState extends State {
         title: "Study Buddy Test",
         home: SplashPage(),
         routes: <String, WidgetBuilder>{
-          //'/task': (BuildContext context) => SecondPage(title: 'Task'),
-          //'/home': (BuildContext context) => MyHomePage(title: 'Home'),
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
         });

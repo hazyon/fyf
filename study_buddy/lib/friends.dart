@@ -29,9 +29,6 @@ class _FriendsState extends State<Friends> {
   String filter;
   List<String> emails = [];
   List<String> tmpEmailsArray = [];
-  StreamController<List<String>> emailsStream;
-  //TextEditingController taskDescripInputController;
-  //String currentEmailUID;
   var recipient;
 
   bool _isInvalidAsyncEmail = false;
@@ -39,8 +36,6 @@ class _FriendsState extends State<Friends> {
 
   String _emailOfRecipient;
 
-  //String _senderFName;
-  //String _senderSurname;
   bool _haveData = false;
   String _senderFullName;
   String _senderEmail;
@@ -49,51 +44,12 @@ class _FriendsState extends State<Friends> {
   initState() {
     // TODO: commenting out the following text edit line
     taskTitleInputController = new TextEditingController();
-    //emailsStream = StreamController<List<String>>();
-    //emailsStream.add(tmpEmailsArray);
-    /* taskTitleInputController.addListener(() {
-      filter = taskTitleInputController.text;
-      tmpEmailsArray.clear();
-      if (filter == null || filter == "") {
-        for (String email in emails)
-          {
-            tmpEmailsArray.add(email);
-          }
-      }
-      else
-        {
-          for (String email in emails)
-            {
-              if (email.contains(filter))
-                {
-                  tmpEmailsArray.add(email);
-                }
-            }
-        }
-
-      //_showDialog();
-      /*setState(() {
-        filter = taskTitleInputController.text;
-      });*/
-    });*/
-    //currentEmailUID = "UIDplaceholder";
 
     getUserInfo();
     super.initState();
   }
 
   void getUserInfo() {
-    /*await Firestore.instance
-        .collection("users")
-        .document(widget.uid)
-        .get()
-        .then((DocumentSnapshot result) {
-      //_senderFName = result["fname"];
-      _senderFullName = result["fname"] + " " + result["surname"];
-      //_senderSurname = result["surname"];
-      _senderEmail = result["email"];
-    }).catchError((err) => print(err));*/
-    //taskDescripInputController = new TextEditingController();
 
     Firestore.instance.collection("users").getDocuments().then((docs) {
       setState(() {
@@ -102,9 +58,8 @@ class _FriendsState extends State<Friends> {
               doc["email"] + " (" + doc["fname"] + " " + doc["surname"] + ")");
           if (doc["uid"] == widget.uid) {
             _senderFullName = doc["fname"] + " " + doc["surname"];
-            //_senderSurname = result["surname"];
-            _senderEmail = doc["email"];
 
+            _senderEmail = doc["email"];
           }
         });
         _haveData = true;
@@ -120,12 +75,6 @@ class _FriendsState extends State<Friends> {
   }
 
   String emailValidator(String value) {
-    /*Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value)) {
-      return 'Email format is invalid';
-    }*/
     if (!EmailValidator.validate(value.trim())) {
       return "Email format is invalid";
     }
@@ -135,25 +84,8 @@ class _FriendsState extends State<Friends> {
     if (_isInvalidAsyncEmail) {
       _isInvalidAsyncEmail = false;
       return "This email doesn't exist";
-      /*Firestore.instance
-          .collection("users")
-          .where("email", isEqualTo: value)
-           .getDocuments().then((QuerySnapshot docs) {
-             //return "I have the documents";
-             if (docs.documents.isNotEmpty)
-              {
-                // emails are unique, so there should only be one
-                recipient = docs.documents[0].data;
-                currentEmailUID = recipient["fname"] + " " + recipient["surname"];
-                return null;
-              }
-
-          });*/
-      //return "This email doesn't exist";
-      //return(currentEmailUID);
 
     }
-    //return "something went wrong";
     return null;
   }
 
@@ -180,7 +112,8 @@ class _FriendsState extends State<Friends> {
                       controller: taskTitleInputController,
                       keyboardType: TextInputType.emailAddress,
                       validator: emailValidator,
-                      onSaved: (value) => _emailOfRecipient = value.toLowerCase().trim(),
+                      onSaved: (value) =>
+                          _emailOfRecipient = value.toLowerCase().trim(),
                     ),
                     Container(
                       width: double.maxFinite,
@@ -189,29 +122,7 @@ class _FriendsState extends State<Friends> {
                           child: new MyDialogContent(
                             emails: emails,
                             textController: taskTitleInputController,
-                          )
-                          /*StreamBuilder(
-                          stream: emailsStream.stream,
-                          builder: (context, snapshot) {
-                            return tmpEmailsArray.isEmpty ? new Container() : new Container(child: ListView.builder(
-                              itemCount: tmpEmailsArray.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return new Card(child: new Text(tmpEmailsArray[index]));
-                              },
-                            ));
-                          },
-                        )*/
-                          /*ListView.builder(
-                          itemCount: emails.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return filter == null || filter == ""
-                                ? new Card(child: new Text(emails[index]))
-                                : emails[index].contains(filter)
-                                    ? new Card(child: new Text(emails[index]))
-                                    : new Container();
-                          },
-                        ),*/
-                          ),
+                          )),
                     )
                   ],
                 )),
@@ -222,7 +133,7 @@ class _FriendsState extends State<Friends> {
               child: Text('Cancel'),
               onPressed: () {
                 taskTitleInputController.clear();
-                //taskDescripInputController.clear();
+
                 Navigator.pop(context);
               }),
           FlatButton(
@@ -234,21 +145,17 @@ class _FriendsState extends State<Friends> {
                   // dismiss keyboard during async call
                   FocusScope.of(context).requestFocus(new FocusNode());
 
-                  //Future.delayed(Duration(seconds: 1), () {
                   Firestore.instance
                       .collection("users")
                       .where("email", isEqualTo: _emailOfRecipient)
                       .getDocuments()
                       .then((QuerySnapshot docs) {
-                    //return "I have the documents";
-                    //setState(() {
                     if (docs.documents.isNotEmpty) {
                       // emails are unique, so there should only be one
                       recipient = docs.documents[0].data;
-                      //currentEmailUID = recipient["uid"];
-                      //recipient["fname"] + " " + recipient["surname"];
+
                       _isInvalidAsyncEmail = false;
-                      //_haveValidEmail = true;
+
                       Firestore.instance
                           .collection("users")
                           .document(recipient["uid"])
@@ -276,29 +183,13 @@ class _FriendsState extends State<Friends> {
                           .then((result) => {
                                 Navigator.pop(context),
                                 taskTitleInputController.clear(),
-                                //taskDescripInputController.clear(),
                               })
                           .catchError((err) => print(err));
                     } else {
                       _isInvalidAsyncEmail = true;
                       _friendFormKey.currentState.validate();
                     }
-
-                    //_showDialog();
-                    //});
                   });
-                  //if (_haveValidEmail) {
-
-                  //}
-                  //});
-                  // TODO: check if this person exists
-                  //String placeholder = "placeholder name";
-                  /*Firestore.instance
-                      .collection('users')
-                      .snapshots()
-                      .listen((data) =>
-                      data.documents.forEach((doc) => placeholder = doc["email"]));*/
-
                 }
               })
         ],
@@ -313,58 +204,52 @@ class _FriendsState extends State<Friends> {
         Expanded(
           child: SizedBox(
               child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
-                    .collection("users")
-                    .document(widget.uid)
-                    .collection('friends')
-                    .orderBy("status")
-                    .snapshots(),
-                builder:
-                    (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return new Text('Loading...');
-                    default:
-                      return new ListView(
-                        children:
-                        snapshot.data.documents.map((
-                            DocumentSnapshot document) {
-                          return new CustomCard(
-                            name: document['fullName'],
-                            email: document['email'],
-                            date: document['date'],
-                            status: document['status'],
-                            uid: document["uid"],
-                            docId: document.documentID,
-                            userEmail: _senderEmail,
-                            userFullName: _senderFullName,
-                            userUID: widget.uid,
-                          );
-                        }).toList(),
+            stream: Firestore.instance
+                .collection("users")
+                .document(widget.uid)
+                .collection('friends')
+                .orderBy("status")
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError)
+                return new Text('Error: ${snapshot.error}');
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return new Text('Loading...');
+                default:
+                  return new ListView(
+                    children: snapshot.data.documents
+                        .map((DocumentSnapshot document) {
+                      return new CustomCard(
+                        name: document['fullName'],
+                        email: document['email'],
+                        date: document['date'],
+                        status: document['status'],
+                        uid: document["uid"],
+                        docId: document.documentID,
+                        userEmail: _senderEmail,
+                        userFullName: _senderFullName,
+                        userUID: widget.uid,
                       );
-                  }
-                },
-              )),
+                    }).toList(),
+                  );
+              }
+            },
+          )),
         ),
         RaisedButton(
           onPressed: _showDialog,
           child: Icon(Icons.add),
         )
       ]);
-   }
-    else
-      {
-        /*return ModalProgressHUD(
-          opacity: 0.5,
-          progressIndicator: CircularProgressIndicator(),
-        );*/
-        return Center(
-          child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation(Colors.blue),),
-        );
-      }
+    } else {
+      return Center(
+        child: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation(Colors.blue),
+        ),
+      );
+    }
   }
 }
 
@@ -405,6 +290,7 @@ class _MyDialogContentState extends State<MyDialogContent> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return ListView.builder(
       itemCount: widget.emails.length,
       itemBuilder: (BuildContext context, int index) {

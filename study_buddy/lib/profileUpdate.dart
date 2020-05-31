@@ -434,30 +434,6 @@ class _ProfilePageState extends State<ProfilePage> {
     if (errorMessage != null) {
       _showMessage("Error", errorMessage);
 
-      /*Widget okButton = FlatButton(
-        child: Text("OK"),
-        onPressed: () {
-          Navigator.of(context).pop(); // dismiss dialog
-        },
-      );
-
-      // set up the AlertDialog
-      AlertDialog alert = AlertDialog(
-        title: Text("Error"),
-        content: Text(errorMessage),
-        actions: [
-          okButton,
-        ],
-      );
-
-      // show the dialog
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );*/
-
       return Future.error(errorMessage);
     }
 
