@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'dart:collection';
@@ -39,8 +38,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
   String _meetingDescrip;
   String _meetingLocation;
   String _meetingClass;
-
-  bool _success = false;
 
   @override
   initState() {
@@ -375,18 +372,17 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                       _radioValue); // todo: for some reason this is null when you pass it
                                   //sendOutMeeting(0);
 
+                                  // clears form fields on submit
+                                  // todo: make sure date and time are cleared
+
                                   titleInputController.clear();
                                   descriptionInputController.clear();
                                   locationInputController.clear();
                                   classInputController.clear();
                                   _radioValue = 0;
-
-
+                                  _success(
+                                      "Your meeting has successfully been sent.");
                                 });
-
-                                // clears form fields on submit
-                                // todo: make sure date and time are cleared
-
                               }
                             },
                           ),
@@ -415,7 +411,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         Firestore.instance
             .collection("dataArray")
             .document(
-            idToClassMap[classInputController.text.toLowerCase().trim()])
+                idToClassMap[classInputController.text.toLowerCase().trim()])
             .collection("students")
             .getDocuments()
             .then((docs) {
@@ -437,7 +433,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
             }
           });
         });
-        _success = true;
       } else {
         // print error that you haven't selected a valid class only if you want to send to classmates
         showDialog(
@@ -482,13 +477,11 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
           }).catchError((err) => print(err));
         });
       });
-      _success = true;
     } else {
       // TODO: open check list to pick recipients
       print("still null");
     }
     // send to yourself
-    if (_success) {
       Firestore.instance
           .collection("users")
           .document(widget.uid)
@@ -502,49 +495,33 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         "location": _meetingLocation,
         "class": _meetingClass,
       }).then((_) {
-        _openNewPage(); // success page on submission
       }).catchError((err) => print(err));
-    }
   }
 
   /// shows success message on submission of form
-  /// adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
-  void _openNewPage() {
-    Navigator.of(context).push(
-      new MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Success'),
-            ),
-            body: new Center(
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 19.0),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 19.0),
-                        ),
-                        Text(
-                          'You have Successfully Sent a Meeting Request!',
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: new TextStyle(fontWeight: FontWeight.w300),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+  void _success(String message) {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Success"),
+      content: Text(message),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

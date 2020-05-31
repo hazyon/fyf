@@ -128,6 +128,46 @@ class _ProfilePageState extends State<ProfilePage> {
                                 new Icon(Icons.person, color: Colors.blue)),
                             enabledBorder: const OutlineInputBorder(
                               borderRadius:
+                        }),
+                    new Padding(padding: EdgeInsets.all(10.0)),
+                    RaisedButton(
+                      child: Text("Update Name"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(16.0))),
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        if (_updateNameKey.currentState.validate()) {
+                          userProfileRef.updateData({
+                            "fname": firstNameInputController.text,
+                            "surname": lastNameInputController.text
+                          }).catchError((err) => print(err));
+                          firstNameInputController.clear();
+                          lastNameInputController.clear();
+                          pwdInputController.clear();
+                          confirmPwdInputController.clear();
+                          _success("Your name has been successfully updated!");
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Form(
+                  key: _updatePasswordKey,
+                  child: Column(children: <Widget>[
+                    new Padding(padding: EdgeInsets.all(10.0)),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Password',
+                        prefixIcon: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: new Icon(Icons.lock, color: Colors.blue)),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius:
                               BorderRadius.all(Radius.circular(100.0)),
                               borderSide:
                               const BorderSide(color: Color(0xffD3D3D3)),
@@ -295,6 +335,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             } else {
                              _showMessage("Error", "The passwords do not match");
                             }
+
                           }
                         },
                       ),
@@ -376,6 +417,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
+
                       ),
                       RaisedButton(
                           child: Text("Classes"),
@@ -514,5 +556,30 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       ),
     );*/
+  /// shows success message on submission of form
+  void _success(String message) {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Success"),
+      content: Text(message),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

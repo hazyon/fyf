@@ -33,54 +33,74 @@ class MeetingCustomCard extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Scaffold(
-                                  appBar: AppBar(
-                                    title: Text(title),
-                                  ),
-                                  body: Center(
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text("Class: " + course),
-                                          //TODO fix date and time not printing, error message: "type 'Timestamp' is not a subtype of type 'String'"
-                                          //Text("Date: " + date),
-                                          //Text("Time: " + time),
-                                          Text("Location: " + location),
-                                          Text("Description: " + description),
-                                          RaisedButton(
 
-                                            child: Text("Join"),
-                                            color: Theme.of(context).primaryColor,
+                            builder: (context) => Scaffold(
+                                appBar: AppBar(
+                                  title: Text(title),
+                                ),
+                                body: Center(
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Class: " + course),
+                                        //TODO fix date and time-- not printing in a nicely formatted way
+                                        //Text("Date: " + date.toString()),
+                                        //Text("Time: " + time.toString()),
+                                        Text("Location: " + location),
+                                        Text("Description: " + description),
+                                        new Padding(
+                                            padding:
+                                                EdgeInsets.only(top: 10.0)),
+                                        RaisedButton(
+                                          child: Text("Join"),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(16.0))),
+                                          color: Theme.of(context).primaryColor,
+                                          textColor: Colors.white,
+                                          onPressed: () {
+                                            Firestore.instance
+                                                .collection("meetings")
+                                                .document(uid)
+                                                .collection('attendees')
+                                                .add({
+                                              "userUID": userUID,
+                                            }).catchError((err) => print(err));
+
+
+                                            Firestore.instance
+                                                .collection("users")
+                                                .document(userUID)
+                                                .collection('meetings')
+                                                .add({
+                                              "meetingUID": uid,
+                                              "class": course,
+                                              "date": date,
+                                              "description": description,
+                                              "location": location,
+                                              "time": time,
+                                              "title": title
+                                            }).catchError((err) => print(err));
+
+
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                        RaisedButton(
+                                            child: Text('Back'),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(16.0))),
+                                            color:
+                                                Theme.of(context).primaryColor,
                                             textColor: Colors.white,
-                                            onPressed: () {
-                                              Firestore.instance
-                                                  .collection("meetings")
-                                                  .document(uid)
-                                                  .collection('attendees')
-                                                  .add({
-                                                "userUID": userUID,
-                                              }).catchError((err) => print(err));
-
-                                              Firestore.instance
-                                                  .collection("users")
-                                                  .document(userUID)
-                                                  .collection('meetings')
-                                                  .add({
-                                                "meetingUID": uid,
-                                                "class": course,
-                                                "date": date,
-                                                "description": description,
-                                                "location": location,
-                                                "time": time,
-                                                "title": title
-                                              }).catchError((err) => print(err));
-
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ]),
-                                  )),
+                                            onPressed: () =>
+                                                Navigator.pop(context)),
+                                      ]),
+                                )),
                           ));
                       }
                       else
