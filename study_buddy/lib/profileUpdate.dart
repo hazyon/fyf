@@ -41,9 +41,9 @@ class _ProfilePageState extends State<ProfilePage> {
     userProfileRef.get().then((result) {
       setState(() {
         firstNameInputController =
-        new TextEditingController(text: result["fname"]);
+            new TextEditingController(text: result["fname"]);
         lastNameInputController =
-        new TextEditingController(text: result["surname"]);
+            new TextEditingController(text: result["surname"]);
         _email = result["email"];
         _haveData = true;
       });
@@ -91,19 +91,19 @@ class _ProfilePageState extends State<ProfilePage> {
                           hintText: 'First Name',
                           prefixIcon: Padding(
                               padding: EdgeInsets.only(left: 10),
-                              child: new Icon(Icons.person, color: Colors
-                                  .blue)),
+                              child:
+                                  new Icon(Icons.person, color: Colors.blue)),
                           enabledBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           focusedBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100)),
@@ -118,85 +118,38 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       new Padding(padding: EdgeInsets.all(5.0)),
                       TextFormField(
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'Last Name',
-                            prefixIcon: Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child:
-                                new Icon(Icons.person, color: Colors.blue)),
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                        }),
-                    new Padding(padding: EdgeInsets.all(10.0)),
-                    RaisedButton(
-                      child: Text("Update Name"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(16.0))),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        if (_updateNameKey.currentState.validate()) {
-                          userProfileRef.updateData({
-                            "fname": firstNameInputController.text,
-                            "surname": lastNameInputController.text
-                          }).catchError((err) => print(err));
-                          firstNameInputController.clear();
-                          lastNameInputController.clear();
-                          pwdInputController.clear();
-                          confirmPwdInputController.clear();
-                          _success("Your name has been successfully updated!");
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Form(
-                  key: _updatePasswordKey,
-                  child: Column(children: <Widget>[
-                    new Padding(padding: EdgeInsets.all(10.0)),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        hintText: 'Password',
-                        prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: new Icon(Icons.lock, color: Colors.blue)),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(100.0)),
-                              borderSide:
-                              const BorderSide(color: Color(0xffD3D3D3)),
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(100.0)),
-                              borderSide:
-                              const BorderSide(color: Color(0xffD3D3D3)),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100)),
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          hintText: 'Last Name',
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child:
+                                  new Icon(Icons.person, color: Colors.blue)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100.0)),
+                            borderSide:
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
-                          controller: lastNameInputController,
-                          validator: (value) {
-                            if (value.length < 2) {
-                              return "Please enter a valid last name.";
-                            }
-                            return null;
-                          }),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                        controller: lastNameInputController,
+                        validator: (value) {
+                          if (value.length == 0) {
+                            return "Please enter a valid first name.";
+                          }
+                          return null;
+                        },
+                      ),
                       new Padding(padding: EdgeInsets.all(10.0)),
                       RaisedButton(
                         child: Text("Update Name"),
                         shape: RoundedRectangleBorder(
                             borderRadius:
                             BorderRadius.all(Radius.circular(16.0))),
-                        color: Theme
-                            .of(context)
-                            .primaryColor,
+                        color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
                         onPressed: () {
                           if (_updateNameKey.currentState.validate()) {
@@ -207,7 +160,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               _showMessage("Success",
                                   "Your name has been successfully updated!");
                             }).catchError((err) => print(err));
-
                           }
                         },
                       ),
@@ -228,15 +180,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: new Icon(Icons.lock, color: Colors.blue)),
                           enabledBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           focusedBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100)),
@@ -256,15 +208,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: new Icon(Icons.lock, color: Colors.blue)),
                           enabledBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           focusedBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100)),
@@ -284,15 +236,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: new Icon(Icons.lock, color: Colors.blue)),
                           enabledBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           focusedBorder: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100.0)),
+                                BorderRadius.all(Radius.circular(100.0)),
                             borderSide:
-                            const BorderSide(color: Color(0xffD3D3D3)),
+                                const BorderSide(color: Color(0xffD3D3D3)),
                           ),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100)),
@@ -306,10 +258,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text("Change Password"),
                         shape: RoundedRectangleBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(16.0))),
-                        color: Theme
-                            .of(context)
-                            .primaryColor,
+                                BorderRadius.all(Radius.circular(16.0))),
+                        color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
                         onPressed: () {
                           if (_updatePasswordKey.currentState.validate()) {
@@ -319,23 +269,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                   .then((_) {
                                 FirebaseAuth.instance
                                     .currentUser()
-                                    .then((FirebaseUser user) =>
-                                    user
-                                        .updatePassword(pwdInputController.text)
-                                        .then((result) {
-                                      pwdInputController.clear();
-                                      confirmPwdInputController.clear();
-                                      oldPasswordInputController.clear();
-                                      _showMessage("Success",
-                                          "Your password has been successfully updated!");
-                                    }).catchError((err) => print(err)))
+                                    .then((FirebaseUser user) => user
+                                            .updatePassword(
+                                                pwdInputController.text)
+                                            .then((result) {
+                                          pwdInputController.clear();
+                                          confirmPwdInputController.clear();
+                                          oldPasswordInputController.clear();
+                                          _showMessage("Success",
+                                              "Your password has been successfully updated!");
+                                        }).catchError((err) => print(err)))
                                     .catchError((err) => print(err));
                               });
-
                             } else {
-                             _showMessage("Error", "The passwords do not match");
+                              _showMessage(
+                                  "Error", "The passwords do not match");
                             }
-
                           }
                         },
                       ),
@@ -397,10 +346,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Text("Update Grade"),
                               shape: RoundedRectangleBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor,
+                                      BorderRadius.all(Radius.circular(16.0))),
+                              color: Theme.of(context).primaryColor,
                               textColor: Colors.white,
                               onPressed: () {
                                 if (values.contains(_radioValue)) {
@@ -417,30 +364,46 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-
                       ),
                       RaisedButton(
                           child: Text("Classes"),
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(16.0))),
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          color: Theme.of(context).primaryColor,
                           textColor: Colors.white,
                           onPressed: () {}),
                     ]))
               ],
             ),
           ));
-    }
-    else {
-     return Center(
+    } else {
+      return Center(
         child: CircularProgressIndicator(
           valueColor: new AlwaysStoppedAnimation(Colors.blue),
         ),
       );
     }
+  }
+
+  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
+  void _showMessage(String type, String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(type),
+            content: Text(message),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 
   Future<FirebaseUser> signIn(String email, String password) async {
@@ -499,87 +462,5 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
     return user;
-  }
-
-  // shows success message on submission of form; adapted from https://fluttercentral.com/Articles/Post/19/Creating_a_Form_in_Flutter
-  void _showMessage(String type, String message) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(type),
-            content: Text(
-                message),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-    /*Navigator.of(context).push(
-      new MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Success'),
-            ),
-            body: new Center(
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 19.0),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 19.0),
-                        ),
-                        Text(
-                          message,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: new TextStyle(fontWeight: FontWeight.w300),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );*/
-  /// shows success message on submission of form
-  void _success(String message) {
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context).pop(); // dismiss dialog
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Success"),
-      content: Text(message),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 }

@@ -85,20 +85,29 @@ class MeetingCustomCard extends StatelessWidget {
                                               "title": title
                                             }).catchError((err) => print(err));
 
+                                            Firestore.instance
+                                                .collection("users")
+                                                .document(userUID)
+                                                .collection("incomingMeetings")
+                                                .where("meetingUID", isEqualTo: uid)
+                                                .getDocuments()
+                                                .then((QuerySnapshot docs) {
+                                              if (docs.documents.isNotEmpty) {
+                                                // emails are unique, so there should only be one
+                                                DocumentSnapshot toDelete = docs.documents[0];
+
+                                                Firestore.instance
+                                                    .collection("users")
+                                                    .document(userUID)
+                                                    .collection("incomingMeetings")
+                                                    .document(toDelete.documentID)
+                                                    .delete();
+                                              }
+                                            }).catchError((err) => print(err));
 
                                             Navigator.pop(context);
                                           },
                                         ),
-                                        RaisedButton(
-                                            child: Text('Back'),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(16.0))),
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            textColor: Colors.white,
-                                            onPressed: () =>
-                                                Navigator.pop(context)),
                                       ]),
                                 )),
                           ));

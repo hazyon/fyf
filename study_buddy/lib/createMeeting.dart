@@ -74,13 +74,12 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
       setState(() {
         docs.documents.forEach((doc) {
           String name =
-              doc["Name"].toLowerCase() + " (" + doc["Department"] + ")";
-          idToClassMap[doc["Name"].toLowerCase()] = doc.documentID;
+              doc["Name"] + " - " + doc["Teacher"] + " (" + doc["Department"] + ")";
+          idToClassMap[doc["Name"].toLowerCase() + " - " + doc["Teacher"].toLowerCase()] = doc.documentID;
           classNames.add(name);
         });
 
         print(idToClassMap);
-        //print("Expect: " + idToClassMap["news & media lit. in the digi. era - s"]);
         _haveData = true;
       });
     });
@@ -300,7 +299,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                 }
                                 return null;
                               },
-                              onSaved: (value) => _meetingClass = value),
+                              onSaved: (value) => _meetingClass = value.toLowerCase().trim()),
                           new Container(
                               width: double.maxFinite,
                               child: new SizedBox(
@@ -463,28 +462,8 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
             }
           });
         });
-      } else {
-        // print error that you haven't selected a valid class only if you want to send to classmates
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Error"),
-                content: Text(
-                    "This is not a valid class"),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("Close"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              );
-            });
       }
     } else if (radioNum == 1) {
-      // todo: send out to all friends (meeting was sent to your # friends)
       Firestore.instance
           .collection("users")
           .document(widget.uid)
@@ -558,7 +537,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         "time": time,
         "location": _meetingLocation,
         "class": _meetingClass,
-      }).then((_) {
       }).catchError((err) => print(err));
   }
 
