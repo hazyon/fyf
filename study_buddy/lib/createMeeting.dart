@@ -27,6 +27,10 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
   List<String> classNames = new List<String>();
   TextEditingController classInputController;
   bool _haveData = false;
+  bool _haveFriends = false;
+
+  Map idToFriendMap = new HashMap<String, String>();
+  Map<String, bool> friends = {};
 
   DateTime date;
   DateTime time;
@@ -56,6 +60,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
 
     //_radioValue = 0; // none of the buttons are selected at the beginning
     getClassData();
+    getFriends();
     super.initState();
   }
 
@@ -77,6 +82,27 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         print(idToClassMap);
         //print("Expect: " + idToClassMap["news & media lit. in the digi. era - s"]);
         _haveData = true;
+      });
+    });
+  }
+
+  void getFriends() {
+    Firestore.instance
+        .collection("users")
+        .document(widget.uid)
+        .collection("acceptedFriends")
+        .orderBy("fullName")
+        .getDocuments()
+        .then((docs) {
+      print("have data, started putting it in variables");
+      setState(() {
+        docs.documents.forEach((doc) {
+          idToFriendMap[doc["fullName"]] = doc.documentID;
+          friends[doc["fullName"]] = false;
+        });
+
+        print(idToClassMap);
+        _haveFriends = true;
       });
     });
   }
@@ -379,9 +405,13 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                                   descriptionInputController.clear();
                                   locationInputController.clear();
                                   classInputController.clear();
+
+
+                                  if (_radioValue != 2) {
+                                    _success(
+                                        "Your meeting has successfully been sent.");
+                                  }
                                   _radioValue = 0;
-                                  _success(
-                                      "Your meeting has successfully been sent.");
                                 });
                               }
                             },
@@ -478,9 +508,43 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         });
       });
     } else {
-      // TODO: open check list to pick recipients
-      print("still null");
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+        title: Text("Select recipients"),
+        content: Scaffold(
+        appBar: AppBar(),
+        body: Container(
+          height: 100.0,
+          width: 100.0,
+          child: ListView(
+            children: friends.keys.map((String key) {
+              return new CheckboxListTile(
+                title: new Text(key),
+                value: friends[key],
+                onChanged: (bool value) {
+                  setState(() {
+                    friends[key] = value;
+                  });
+                },
+              );
+            }).toList(),
+          ),
+        )),
+        actions: [
+          FlatButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop(); // dismiss dialog
+            },
+          ),
+        ],
+        );
+        },
+      );
     }
+
     // send to yourself
       Firestore.instance
           .collection("users")

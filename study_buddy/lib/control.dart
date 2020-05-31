@@ -6,6 +6,7 @@ import './home.dart';
 import './friends.dart';
 import './profileUpdate.dart';
 import './meetings.dart';
+import './classes.dart';
 
 class ControlPage extends StatefulWidget {
   ControlPage({Key key, this.title, this.uid}) : super(key: key);
@@ -35,10 +36,7 @@ class ControlPageState extends State<ControlPage> {
     _pageOptions = [
       // the array of pages
       HomeJoined(uid: widget.uid),
-      Text(
-        "Messages",
-        style: TextStyle(fontSize: 36),
-      ),
+      Classes(uid: widget.uid),
       Meetings(uid: widget.uid, date: date),
       Friends(uid: widget.uid, date: date),
       ProfilePage(uid: widget.uid),
@@ -81,7 +79,7 @@ class ControlPageState extends State<ControlPage> {
             title: Text("Home"),
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.message), title: Text("Chat")),
+              icon: Icon(Icons.calendar_today), title: Text("Classes")),
           BottomNavigationBarItem(
               icon: Icon(Icons.add_box), title: Text("Meetings")),
           BottomNavigationBarItem(
