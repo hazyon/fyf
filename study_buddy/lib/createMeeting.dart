@@ -27,7 +27,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
   List<String> classNames = new List<String>();
   TextEditingController classInputController;
   bool _haveData = false;
-  bool _haveFriends = false;
 
   Map idToFriendMap = new HashMap<String, String>();
   Map<String, bool> friends = {};
@@ -101,7 +100,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         });
 
         print(idToClassMap);
-        _haveFriends = true;
       });
     });
   }
@@ -491,37 +489,60 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-        title: Text("Select recipients"),
-        content: Scaffold(
-        appBar: AppBar(),
-        body: Container(
-          height: 100.0,
-          width: 100.0,
-          child: ListView(
-            children: friends.keys.map((String key) {
-              return new CheckboxListTile(
-                title: new Text(key),
-                value: friends[key],
-                onChanged: (bool value) {
-                  setState(() {
-                    friends[key] = value;
-                  });
+            title: Text("Select recipients"),
+            content: Scaffold(
+              appBar: AppBar(),
+              body: Container(
+                child: ListView(
+                  children: friends.keys.map((String key) {
+                    return new CheckboxListTile(
+                      title: new Text(key),
+                      value: friends[key],
+                      onChanged: (bool value) {
+                        setState(() {
+                          friends[key] = value;
+                        });
+                      },
+                    );
+                  }).toList(),
+                ),
+              )),
+            actions: [
+              FlatButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop(); // dismiss dialog
                 },
-              );
-            }).toList(),
-          ),
-        )),
-        actions: [
-          FlatButton(
-            child: Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop(); // dismiss dialog
-            },
-          ),
-        ],
-        );
+              ),
+            ],
+          );
         },
       );
+
+      Firestore.instance
+          .collection("users")
+          .document(widget.uid)
+          .collection("acceptedFriends")
+          .getDocuments()
+          .then((docs) {
+        friends.forEach((target, targeted) {
+          if (targeted) {
+            Firestore.instance
+                .collection("users")
+                .document(idToFriendMap[target])
+                .collection('incomingMeetings')
+                .add({
+              "meetingUID": _meetingID,
+              'title': _meetingTitle,
+              'description': _meetingDescrip,
+              "date": date,
+              "time": time,
+              "location": _meetingLocation,
+              "class": _meetingClass,
+            }).catchError((err) => print(err));
+          }
+        });
+      });
     }
 
     // send to yourself
