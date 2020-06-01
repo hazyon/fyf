@@ -74,6 +74,8 @@ class FriendRequestDescription extends StatelessWidget {
                   RaisedButton(
                     child: Text("Accept"),
                     color: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
                     textColor: Colors.white,
                     onPressed: () {
                       deleteRequest();

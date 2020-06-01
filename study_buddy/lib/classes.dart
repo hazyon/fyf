@@ -45,7 +45,7 @@ class _ClassesState extends State<Classes> {
                   .collection('users')
                   .document(widget.uid)
                   .collection('classes')
-                  .orderBy("name")
+                  .orderBy("period")
                   .snapshots(),
               builder:
                   (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

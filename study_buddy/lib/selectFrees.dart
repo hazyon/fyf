@@ -68,6 +68,7 @@ class _SelectFreesState extends State<SelectFrees> {
             builder: (context) =>
                 ControlPage(
                   uid: widget.uid,
+                  title: "Study Buddy"
                 )),
             (_) => false);
 
