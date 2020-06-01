@@ -62,7 +62,7 @@ class _AddClassPageState extends State<AddClassPage> {
         docs.documents.forEach((doc) {
           String name =
               doc["Name"].toLowerCase() + " (" + doc["Teacher"] + ")";
-          idToClassMap[doc["Name"].toLowerCase()] = doc.documentID;
+          idToClassMap[doc["Name"].toLowerCase() + " (" + doc["Teacher"].toLowerCase() + ")"] = doc.documentID;
           classNames.add(name);
         });
         _haveData = true;
@@ -253,6 +253,11 @@ class _AddClassPageState extends State<AddClassPage> {
                                   // adds form values to database on successful validation
                                   onPressed: () {
                                     _addClassKey.currentState.save();
+
+                                    Firestore.instance.collection("dataArray")
+                                        .document(idToClassMap[_class.toLowerCase().trim()]).collection("students").add({
+                                      "studentUID": widget.uid,
+                                    });
 
                                     Firestore.instance
                                         .collection("users")
