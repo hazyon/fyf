@@ -118,6 +118,44 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
     });
   }
 
+  Future _showAlert(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Select recipients"),
+          content: Scaffold(
+              appBar: AppBar(),
+              body: Container(
+                child: ListView(
+                  children: friends.keys.map((String key) {
+                    return new CheckboxListTile(
+                      title: new Text(key),
+                      value: friends[key],
+                      onChanged: (bool value) {
+                        setState(() {
+                          friends[key] = value;
+                        });
+                        Navigator.of(context).pop();
+                        _showAlert(context) ;
+                      },
+                    );
+                  }).toList(),
+                ),
+              )),
+          actions: [
+            FlatButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop(); // dismiss dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print("Running build"); // debug
@@ -485,39 +523,7 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
         });
       });
     } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Select recipients"),
-            content: Scaffold(
-              appBar: AppBar(),
-              body: Container(
-                child: ListView(
-                  children: friends.keys.map((String key) {
-                    return new CheckboxListTile(
-                      title: new Text(key),
-                      value: friends[key],
-                      onChanged: (bool value) {
-                        setState(() {
-                          friends[key] = value;
-                        });
-                      },
-                    );
-                  }).toList(),
-                ),
-              )),
-            actions: [
-              FlatButton(
-                child: Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop(); // dismiss dialog
-                },
-              ),
-            ],
-          );
-        },
-      );
+      _showAlert(context);
 
       Firestore.instance
           .collection("users")
